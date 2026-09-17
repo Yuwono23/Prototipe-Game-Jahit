@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://4q6bkd20gfp7"]
+
+[ext_resource type="Script" uid="uid://bg82osr1ls150" path="res://Script/potong_kain.gd" id="1_m1br6"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="2_4kw2o"]
+
+[sub_resource type="Curve2D" id="Curve2D_4kw2o"]
+
+[sub_resource type="Gradient" id="Gradient_psiir"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0i2j"]
+gradient = SubResource("Gradient_psiir")
+
+[sub_resource type="Gradient" id="Gradient_4kw2o"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4kw2o"]
+gradient = SubResource("Gradient_4kw2o")
+
+[node name="Main" type="Control" unique_id=810823676]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m1br6")
+
+[node name="Kamera" type="Camera2D" parent="." unique_id=494248672]
+position = Vector2(962, 538)
+
+[node name="VisualPotong" type="Control" parent="." unique_id=386058122]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -957.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Kain" type="TextureRect" parent="VisualPotong" unique_id=260128349]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 231.0
+offset_right = 759.0
+offset_bottom = 877.0
+texture = ExtResource("2_4kw2o")
+
+[node name="LintasanPola" type="Path2D" parent="VisualPotong/Kain" unique_id=2006060980]
+curve = SubResource("Curve2D_4kw2o")
+
+[node name="PengikutJalur" type="PathFollow2D" parent="VisualPotong/Kain/LintasanPola" unique_id=213536258]
+position = Vector2(127, 225)
+rotation = -2.0344439
+
+[node name="GuntingBesar" type="TextureRect" parent="VisualPotong/Kain/LintasanPola/PengikutJalur" unique_id=95182083]
+offset_right = 91.3956
+offset_bottom = 260.0
+rotation = 1.5707964
+texture = SubResource("GradientTexture2D_f0i2j")
+
+[node name="JejakPotongan" type="Line2D" parent="VisualPotong/Kain/LintasanPola" unique_id=1941088868]
+width = 25.0
+default_color = Color(0, 0, 0, 1)
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="UI_SkillCheck" type="Control" parent="." unique_id=104352858]
+anchors_preset = 0
+offset_left = 1092.0
+offset_right = 1922.0
+offset_bottom = 1080.0
+
+[node name="BackgroundBar" type="ColorRect" parent="UI_SkillCheck" unique_id=951220071]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.019000001
+offset_left = 85.0
+offset_top = 182.0
+offset_right = 545.16
+offset_bottom = 232.48
+color = Color(0.4390491, 0.43904912, 0.43904912, 1)
+
+[node name="ZonaHijau" type="ColorRect" parent="UI_SkillCheck/BackgroundBar" unique_id=1724326484]
+layout_mode = 0
+offset_left = 197.0
+offset_right = 310.0
+offset_bottom = 71.0
+color = Color(0.24313726, 1, 0.11372549, 1)
+
+[node name="IndikatorJarum" type="TextureRect" parent="UI_SkillCheck" unique_id=1739236476]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 186.0
+offset_right = 357.0
+offset_bottom = 427.0
+texture = SubResource("GradientTexture2D_4kw2o")
+
+[node name="WadahCentang" type="HBoxContainer" parent="UI_SkillCheck" unique_id=1764864772]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.081
+anchor_bottom = 0.087000005
+offset_left = 84.0
+offset_top = 90.0
+offset_right = 516.77
+offset_bottom = 80.03999
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="UI_SkillCheck/WadahCentang" unique_id=542436253]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="UI_SkillCheck/WadahCentang" unique_id=1193358082]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+
+[node name="ColorRect3" type="ColorRect" parent="UI_SkillCheck/WadahCentang" unique_id=1527321645]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
