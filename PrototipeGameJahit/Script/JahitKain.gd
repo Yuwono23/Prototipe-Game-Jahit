@@ -1,18 +1,18 @@
 extends Control
 
+const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path file-mu
 @onready var jalur_biru = $JalurBiru
 @onready var bar_hijau = $JalurBiru/BarHijau
 @onready var jarum = $JalurBiru/Jarum
 @onready var bar_progres = $BarProgres
 @onready var timer_game = $Timer
 @onready var bar_waktu = $ProgressBar
-
 # Pengaturan Fisika yang bisa diubah langsung di Inspector
 @export var gravitasi = 1200.0
 @export var daya_angkat = -2500.0
 @export var kecepatan_isi = 25.0
 @export var kecepatan_turun = 15.0
-
+@export var durasi_waktu: float = 10.0
 #Pengaturan Kecepatan Jarum AI
 @export var kecepatan_jarum = 150.0 
 var arah_jarum = 1 # 1 untuk bergerak ke bawah, -1 untuk ke ata
@@ -29,7 +29,19 @@ func _ready():
 	bar_progres.value = progres_jahit
 	bar_waktu.value = 100.0
 	_mulai_animasi_jarum() #Panggil fungsi animasi
-	timer_game.start(15.0)
+	
+	# 1. Spawn Hint Overlay
+	var hint = HINT_OVERLAY_SCENE.instantiate()
+	add_child(hint)
+	# 2. Tentukan Teks Instruksi untuk minigame ini (misal: "JAHIT!")
+	hint.tampilkan_hint("JAHIT PAKAIANMU!", 3)	
+	# 3. Dengarkan sinyal saat hint selesai untuk mulai memutar Timer Game asli
+	hint.hint_selesai.connect(_mulai_minigame)
+
+func _mulai_minigame():
+	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
+	# Jalankan timer level atau pergerakan objek di sini jika sebelumnya ditahan
+	timer_game.start(durasi_waktu)
 
 func _mulai_animasi_jarum():
 	var batas_bawah = jalur_biru.size.y - jarum.size.y

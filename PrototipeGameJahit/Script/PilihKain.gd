@@ -1,27 +1,39 @@
 extends Control
 
+# Preload scene hint overlay
+const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path file-mu
+
 # Muncul di Inspector Godot. Masukkan semua tekstur kain ke dalam array ini.
 @export var database_kain: Array[Texture2D]
-
 @onready var target_kain = $BingkaiTarget/TargetKain
 @onready var wadah = $WadahPilihan
 @onready var tombol_kain = wadah.get_children()
 var posisi_awal_y_wadah = 0.0
 var sudah_memilih = false
 var index_jawaban_benar = 0 # Tentukan indeks kain yang benar (0, 1, atau 2)
-
 @onready var timer_game = $Timer
 @onready var bar_waktu = $ProgressBar
-# Waktu dasar 3 detik, durasi standar untuk microgame bertempo cepat
-var durasi_level = 20.0
 var tween_hover: Tween # Menyimpan Tween hover agar tidak bentrok
+@export var durasi_waktu: float = 10.0
 
 func _ready():
 	posisi_awal_y_wadah = wadah.position.y
 	# Hubungkan sinyal timeout dari timer secara langsung melalui kode
 	timer_game.timeout.connect(_saat_waktu_habis)
 	_hubungkan_sinyal()
+	
+	# 1. Spawn Hint Overlay
+	var hint = HINT_OVERLAY_SCENE.instantiate()
+	add_child(hint)
+	# 2. Tentukan Teks Instruksi untuk minigame ini (misal: "JAHIT!")
+	hint.tampilkan_hint("PILIH KAIN YANG SESUAI!", 3)	
+	# 3. Dengarkan sinyal saat hint selesai untuk mulai memutar Timer Game asli
+	hint.hint_selesai.connect(_mulai_minigame)
+
+func _mulai_minigame():
+	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
 	_siapkan_ronde_baru() # Panggil fungsi acak saat game mulai
+
 
 func _process(_delta):
 	# Update tampilan bar waktu secara mulus setiap frame selama timer berjalan
@@ -70,7 +82,7 @@ func _siapkan_ronde_baru():
 		
 	# Reset bar dan mulai timer setelah ronde siap dimainkan
 	bar_waktu.value = 100.0
-	timer_game.start(durasi_level)
+	timer_game.start(durasi_waktu)
 			
 func _saat_hover(tombol_aktif: TextureButton):
 	if sudah_memilih: return

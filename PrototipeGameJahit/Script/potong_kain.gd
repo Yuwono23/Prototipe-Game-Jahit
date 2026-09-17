@@ -1,4 +1,5 @@
 extends Control
+const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path file-mu
 
 @onready var indikator = $UI_SkillCheck/IndikatorJarum
 @onready var zona_hijau = $UI_SkillCheck/BackgroundBar/ZonaHijau
@@ -35,6 +36,18 @@ func _ready():
 	# Mulai timer saat ronde dimulai
 	timer_game.timeout.connect(_waktu_habis)
 	bar_waktu.value = 100.0
+	
+	# 1. Spawn Hint Overlay
+	var hint = HINT_OVERLAY_SCENE.instantiate()
+	add_child(hint)
+	# 2. Tentukan Teks Instruksi untuk minigame ini (misal: "JAHIT!")
+	hint.tampilkan_hint("POTONG SESUAI POLA!", 3)	
+	# 3. Dengarkan sinyal saat hint selesai untuk mulai memutar Timer Game asli
+	hint.hint_selesai.connect(_mulai_minigame)
+
+func _mulai_minigame():
+	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
+	# Jalankan timer level atau pergerakan objek di sini jika sebelumnya ditahan
 	timer_game.start(durasi_waktu)
 
 func _buat_jalur_otomatis(tekstur: Texture2D):

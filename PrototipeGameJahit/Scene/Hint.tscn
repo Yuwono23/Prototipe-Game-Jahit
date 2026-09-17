@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://4yvyjymxqehv"]
+
+[ext_resource type="Shader" uid="uid://luavf6u1mykr" path="res://Shader/BackgroundBlur.gdshader" id="1_ffy0b"]
+[ext_resource type="Script" uid="uid://bu8nm5ryqcvmb" path="res://Script/hint.gd" id="1_wk10s"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="3_j5lc4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbtsd"]
+shader = ExtResource("1_ffy0b")
+shader_parameter/lod = 2.5
+
+[node name="HintOverlay" type="CanvasLayer" unique_id=103747666]
+process_mode = 3
+script = ExtResource("1_wk10s")
+
+[node name="BackgroundBlur" type="ColorRect" parent="." unique_id=1780685209]
+material = SubResource("ShaderMaterial_jbtsd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.29803923)
+
+[node name="WadahKonten" type="Control" parent="." unique_id=2108106263]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TeksCountdown" type="Label" parent="WadahKonten" unique_id=2095338883]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -289.0
+offset_top = -136.5
+offset_right = 289.0
+offset_bottom = 136.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 200
+horizontal_alignment = 1
+
+[node name="TeksInstruksi" type="Label" parent="WadahKonten" unique_id=422892693]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -594.5
+offset_top = 19.0
+offset_right = 594.5
+offset_bottom = 219.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 130
+horizontal_alignment = 1
+
+[node name="Background" type="ColorRect" parent="WadahKonten" unique_id=376770985]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -320.0
+offset_right = 750.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WadahGambar" type="HBoxContainer" parent="WadahKonten/Background" unique_id=461302180]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 37.0
+offset_right = 1478.0
+offset_bottom = 590.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Gambar1" type="TextureRect" parent="WadahKonten/Background/WadahGambar" unique_id=1735116745]
+custom_minimum_size = Vector2(700, 540)
+layout_mode = 2
+texture = ExtResource("3_j5lc4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gambar2" type="TextureRect" parent="WadahKonten/Background/WadahGambar" unique_id=821298167]
+custom_minimum_size = Vector2(700, 540)
+layout_mode = 2
+texture = ExtResource("3_j5lc4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimerCountdown" type="Timer" parent="." unique_id=789345735]
+process_mode = 4
+wait_time = 3.0
