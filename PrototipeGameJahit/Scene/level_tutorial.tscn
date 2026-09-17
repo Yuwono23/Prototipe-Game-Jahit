@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cmgm4kf73bmg"]
+
+[ext_resource type="Script" uid="uid://cn4uuvowhsr1l" path="res://Script/level_tutorial.gd" id="1_nfiew"]
+[ext_resource type="PackedScene" uid="uid://ddkyx0fnhcbt0" path="res://Scene/PilihKain.tscn" id="2_pefmh"]
+[ext_resource type="PackedScene" uid="uid://4q6bkd20gfp7" path="res://Scene/PotongKain.tscn" id="3_fivym"]
+[ext_resource type="PackedScene" uid="uid://yxrg4nptuh4r" path="res://Scene/JahitKain.tscn" id="4_p15tk"]
+
+[node name="LevelTutorial" type="Node" unique_id=133464175]
+script = ExtResource("1_nfiew")
+urutan_minigame = Array[PackedScene]([ExtResource("2_pefmh"), ExtResource("3_fivym"), ExtResource("4_p15tk")])
+
+[node name="WadahMinigame" type="Control" parent="." unique_id=724364567]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayerTransisi" type="CanvasLayer" parent="." unique_id=351695683]
+
+[node name="LayarHitam" type="ColorRect" parent="CanvasLayerTransisi" unique_id=256048664]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

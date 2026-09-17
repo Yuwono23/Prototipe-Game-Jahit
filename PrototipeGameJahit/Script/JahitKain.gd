@@ -15,7 +15,8 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 @export var durasi_waktu: float = 10.0
 #Pengaturan Kecepatan Jarum AI
 @export var kecepatan_jarum = 150.0 
-var arah_jarum = 1 # 1 untuk bergerak ke bawah, -1 untuk ke ata
+var arah_jarum = 1 # 1 untuk bergerak ke bawah, -1 untuk ke atas
+signal minigame_selesai(sukses: bool)
 
 var kecepatan_bar = 0.0
 var progres_jahit = 30.0 # Diberi modal awal 30% agar pemain tidak langsung kalah di detik pertama
@@ -126,12 +127,14 @@ func _menang():
 	game_aktif = false
 	timer_game.stop()
 	if tween_jarum: tween_jarum.kill() # Hentikan jarum saat menang
+	minigame_selesai.emit(true)
 	print("Menang! Jahitan selesai dengan rapi.")
 
 func _kalah():
 	game_aktif = false
 	timer_game.stop()
 	if tween_jarum: tween_jarum.kill() # Hentikan jarum saat kalah
+	minigame_selesai.emit(false)
 	print("Kalah! Progres habis atau waktu habis.")
 
 func _waktu_habis():

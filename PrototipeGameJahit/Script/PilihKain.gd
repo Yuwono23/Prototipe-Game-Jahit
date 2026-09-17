@@ -15,6 +15,7 @@ var index_jawaban_benar = 0 # Tentukan indeks kain yang benar (0, 1, atau 2)
 @onready var bar_waktu = $ProgressBar
 var tween_hover: Tween # Menyimpan Tween hover agar tidak bentrok
 @export var durasi_waktu: float = 10.0
+signal minigame_selesai(sukses: bool)
 
 func _ready():
 	posisi_awal_y_wadah = wadah.position.y
@@ -147,7 +148,10 @@ func _saat_waktu_habis():
 func _cek_hasil(indeks: int):
 	if indeks == index_jawaban_benar:
 		print("BENAR! Tampilkan partikel centang/konfeti.")
+		minigame_selesai.emit(true)
 	elif indeks == -1:
 		print("GAGAL! Waktu habis.")
+		minigame_selesai.emit(false)
 	else:
 		print("SALAH! Tampilkan tanda silang/kain robek.")
+		minigame_selesai.emit(false)

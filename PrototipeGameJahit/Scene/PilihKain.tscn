@@ -8,7 +8,7 @@ colors = PackedColorArray(0.64255506, 0.33734262, 0.15417463, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_cb1d2"]
 gradient = SubResource("Gradient_cb1d2")
-width = 550
+width = 500
 height = 750
 
 [sub_resource type="Gradient" id="Gradient_gmvxw"]
@@ -17,7 +17,7 @@ colors = PackedColorArray(0.73333335, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gmvxw"]
 gradient = SubResource("Gradient_gmvxw")
-width = 550
+width = 500
 height = 750
 
 [sub_resource type="Gradient" id="Gradient_vu2t2"]
@@ -26,7 +26,7 @@ colors = PackedColorArray(1, 0, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vu2t2"]
 gradient = SubResource("Gradient_vu2t2")
-width = 550
+width = 500
 height = 750
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlngs"]

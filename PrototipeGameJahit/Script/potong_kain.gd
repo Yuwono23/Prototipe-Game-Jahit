@@ -15,6 +15,7 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 @onready var bar_waktu = $ProgressBar
 # Variabel yang bisa disesuaikan nilainya langsung di Inspector
 @export var durasi_waktu: float = 10.0
+signal minigame_selesai(sukses: bool)
 
 var kecepatan_indikator = 500.0
 var arah = 1
@@ -130,6 +131,7 @@ func _sukses_memotong():
 		timer_game.stop() # Hentikan waktu jika pemain berhasil memotong semua bagian
 		tween.finished.connect(func():
 			set_process(false)
+			minigame_selesai.emit(true)
 			print("Potongan Selesai!")
 		)
 
@@ -147,4 +149,5 @@ func _waktu_habis():
 	
 	# Panggil efek kamera bergetar atau animasi robek
 	_gagal_memotong() 
+	minigame_selesai.emit(false)
 	print("Waktu habis! Gagal memotong sesuai pola.")
