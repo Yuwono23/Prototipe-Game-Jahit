@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://yxrg4nptuh4r"]
+
+[ext_resource type="Script" uid="uid://dcyvc5y8xcc2a" path="res://Script/JahitKain.gd" id="1_wofhh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rwfk"]
+bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htijc"]
+bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
+
+[node name="Control" type="Control" unique_id=750104249]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wofhh")
+
+[node name="Timer" type="Timer" parent="." unique_id=382195948]
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1839397901]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("StyleBoxFlat_2rwfk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_htijc")
+fill_mode = 1
+show_percentage = false
+
+[node name="JalurBiru" type="ColorRect" parent="." unique_id=454492486]
+layout_mode = 0
+offset_left = 1339.0
+offset_top = 315.0
+offset_right = 1441.0
+offset_bottom = 941.0
+
+[node name="BarHijau" type="ColorRect" parent="JalurBiru" unique_id=1369744613]
+layout_mode = 0
+offset_top = 145.0
+offset_right = 102.0
+offset_bottom = 316.0
+color = Color(0.35906908, 0.35906908, 0.35906908, 1)
+
+[node name="Jarum" type="ColorRect" parent="JalurBiru" unique_id=652774419]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 202.0
+offset_right = 75.0
+offset_bottom = 257.0
+color = Color(0, 1, 1, 1)
+
+[node name="BarProgres" type="ProgressBar" parent="." unique_id=774808298]
+layout_mode = 0
+offset_left = 1473.0
+offset_top = 311.0
+offset_right = 1541.5441
+offset_bottom = 941.0
+fill_mode = 3
+show_percentage = false

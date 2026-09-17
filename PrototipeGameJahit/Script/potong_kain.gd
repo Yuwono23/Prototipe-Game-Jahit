@@ -10,6 +10,10 @@ extends Control
 @onready var pengikut_jalur = $VisualPotong/Kain/LintasanPola/PengikutJalur
 @onready var jejak_potongan = $VisualPotong/Kain/LintasanPola/JejakPotongan
 @onready var kain_rect = $VisualPotong/Kain # Asumsi menggunakan TextureRect
+@onready var timer_game = $Timer
+@onready var bar_waktu = $ProgressBar
+# Variabel yang bisa disesuaikan nilainya langsung di Inspector
+@export var durasi_waktu: float = 10.0
 
 var kecepatan_indikator = 500.0
 var arah = 1
@@ -27,6 +31,11 @@ func _ready():
 	jejak_potongan.clear_points()
 	# Tambahkan titik awal tepat di ujung bawah gunting
 	jejak_potongan.add_point(pengikut_jalur.position)
+	
+	# Mulai timer saat ronde dimulai
+	timer_game.timeout.connect(_waktu_habis)
+	bar_waktu.value = 100.0
+	timer_game.start(durasi_waktu)
 
 func _buat_jalur_otomatis(tekstur: Texture2D):
 	if not tekstur: return
@@ -55,6 +64,9 @@ func _buat_jalur_otomatis(tekstur: Texture2D):
 		jalur_pola.curve = kurva_baru
 		
 func _process(delta):
+	# Update visual bar waktu setiap frame
+	if not timer_game.is_stopped():
+		bar_waktu.value = (timer_game.time_left / timer_game.wait_time) * 100.0
 	# Pergerakan bolak-balik indikator (ping-pong)
 	indikator.global_position.x += kecepatan_indikator * arah * delta
 	
@@ -102,7 +114,7 @@ func _sukses_memotong():
 	tween.tween_property(pengikut_jalur, "progress_ratio", rasio_target, 0.25)
 	
 	if progres_saat_ini >= target_progres:
-		# Hapus set_process(false) yang lama dan ganti dengan ini:
+		timer_game.stop() # Hentikan waktu jika pemain berhasil memotong semua bagian
 		tween.finished.connect(func():
 			set_process(false)
 			print("Potongan Selesai!")
@@ -115,3 +127,11 @@ func _gagal_memotong():
 		var offset_acak = Vector2(randf_range(-15, 15), randf_range(-15, 15))
 		tween_kamera.tween_property(kamera, "offset", offset_acak, 0.05)
 	tween_kamera.tween_property(kamera, "offset", Vector2.ZERO, 0.05)
+	
+func _waktu_habis():
+	set_process(false) # Langsung hentikan pergerakan jarum indikator
+	bar_waktu.value = 0
+	
+	# Panggil efek kamera bergetar atau animasi robek
+	_gagal_memotong() 
+	print("Waktu habis! Gagal memotong sesuai pola.")

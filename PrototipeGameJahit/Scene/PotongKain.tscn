@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4q6bkd20gfp7"]
 
 [ext_resource type="Script" uid="uid://bg82osr1ls150" path="res://Script/potong_kain.gd" id="1_m1br6"]
-[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="2_4kw2o"]
+[ext_resource type="Texture2D" uid="uid://b4prg13v3m8dd" path="res://Asset/Placeholder/pngegg.png" id="2_4kw2o"]
 
 [sub_resource type="Curve2D" id="Curve2D_4kw2o"]
 
@@ -16,6 +16,12 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4kw2o"]
 gradient = SubResource("Gradient_4kw2o")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kw2o"]
+bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psiir"]
+bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
 
 [node name="Main" type="Control" unique_id=810823676]
 layout_mode = 3
@@ -79,9 +85,9 @@ anchors_preset = -1
 anchor_right = 0.048
 anchor_bottom = 0.019000001
 offset_left = 85.0
-offset_top = 182.0
+offset_top = 386.0
 offset_right = 545.16
-offset_bottom = 232.48
+offset_bottom = 436.48
 color = Color(0.4390491, 0.43904912, 0.43904912, 1)
 
 [node name="ZonaHijau" type="ColorRect" parent="UI_SkillCheck/BackgroundBar" unique_id=1724326484]
@@ -94,9 +100,9 @@ color = Color(0.24313726, 1, 0.11372549, 1)
 [node name="IndikatorJarum" type="TextureRect" parent="UI_SkillCheck" unique_id=1739236476]
 layout_mode = 0
 offset_left = 293.0
-offset_top = 186.0
+offset_top = 390.0
 offset_right = 357.0
-offset_bottom = 427.0
+offset_bottom = 631.0
 texture = SubResource("GradientTexture2D_4kw2o")
 
 [node name="WadahCentang" type="HBoxContainer" parent="UI_SkillCheck" unique_id=1764864772]
@@ -105,9 +111,9 @@ anchors_preset = -1
 anchor_right = 0.081
 anchor_bottom = 0.087000005
 offset_left = 84.0
-offset_top = 90.0
+offset_top = 294.0
 offset_right = 516.77
-offset_bottom = 80.03999
+offset_bottom = 284.03998
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -125,3 +131,15 @@ layout_mode = 2
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
+
+[node name="Timer" type="Timer" parent="." unique_id=1391995401]
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1622861279]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4kw2o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_psiir")
+fill_mode = 1
+show_percentage = false
