@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://q183e8t42yl6"
+path="res://.godot/imported/cerita_tutorial.dialogue-10bc1519fc9fffc1c8d5f317f1c8b4b0.tres"
+
+[deps]
+
+source_file="res://Dialogue/cerita_tutorial.dialogue"
+dest_files=["res://.godot/imported/cerita_tutorial.dialogue-10bc1519fc9fffc1c8d5f317f1c8b4b0.tres"]
+
+[params]
+
+defaults=true

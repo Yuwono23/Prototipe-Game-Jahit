@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://bt8c22do2s08r"]
+
+[ext_resource type="Script" uid="uid://g32um0mltv5d" path="res://addons/dialogue_manager/nodes/dialogue_label/dialogue_label.gd" id="1_72dvx"]
+[ext_resource type="Script" uid="uid://c6sj46mt0kmsp" path="res://Script/DialogueSystem.gd" id="1_pak4i"]
+
+[node name="DialogueSystem" type="CanvasLayer" unique_id=771316192]
+script = ExtResource("1_pak4i")
+metadata/_custom_type_script = "uid://d1wt4ma6055l8"
+
+[node name="PortretKiri" type="TextureRect" parent="." unique_id=534863405]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -750.0
+offset_right = 600.0
+grow_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortretTengah" type="TextureRect" parent="." unique_id=839388083]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -750.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortretKanan" type="TextureRect" parent="." unique_id=601769265]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -750.0
+offset_right = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelDialog" type="Panel" parent="." unique_id=927271678]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NamaKarakter" type="Label" parent="PanelDialog" unique_id=914662951]
+layout_mode = 1
+offset_left = 35.0
+offset_right = 322.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+
+[node name="TeksDialog" type="RichTextLabel" parent="PanelDialog" unique_id=178147594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = 100.0
+offset_right = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+script = ExtResource("1_72dvx")
+skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
+metadata/_custom_type_script = "uid://g32um0mltv5d"

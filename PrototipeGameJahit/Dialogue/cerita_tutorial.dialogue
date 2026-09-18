@@ -1,0 +1,17 @@
+~ sebelum_potong
+
+# Baris pertama biasanya butuh pengaturan lengkap (layout, gambar, dan fokus).
+Patch: Halo bu, aku sudah siap belajar menjahit! #layout=dua #kiri=11 #kanan=10 #fokus=kiri
+
+# Di baris kedua, kamu TIDAK PERLU menulis ulang layout atau gambarnya jika tidak berubah.
+Gran Gran: Bagus! Mari kita mulai dari memotong pola kain ini. #layout=dua #kiri=11 #kanan=10 #fokus=kanan
+
+# Jika karakter berganti ekspresi, kamu cukup memanggil sisi yang berubah + fokusnya
+Patch: Wah, ternyata guntingnya besar sekali! #layout=satu #tengah=11
+Patch: Maaf ya ges kok ampas banget obrolannya masih template gemini #layout=satu #tengah=11  
+Patch: Butuh asset WOIIII #layout=dua #kiri=11 #kanan=10 #fokus=kiri
+
+# Di baris kedua, kamu TIDAK PERLU menulis ulang layout atau gambarnya jika tidak berubah.
+Gran Gran: Aseli #layout=dua #kiri=11 #kanan=10 #fokus=kanan
+
+=> END

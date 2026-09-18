@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cwesvx3sspkmv"]
+
+[ext_resource type="Script" uid="uid://be576pmnl6a8w" path="res://Script/dialogue_testing.gd" id="1_pynbo"]
+
+[node name="DialogueTesting" type="CanvasLayer" unique_id=962040069]
+script = ExtResource("1_pynbo")
