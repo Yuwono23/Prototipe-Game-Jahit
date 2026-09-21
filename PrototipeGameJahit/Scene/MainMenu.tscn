@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bfot7ghponhb5"]
+
+[ext_resource type="Script" uid="uid://cyfnhdaoxcnwd" path="res://Script/MainMenu.gd" id="1_rrxvj"]
+
+[node name="MainMenu" type="Control" unique_id=2072732815]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6720.0
+offset_top = 3780.0
+offset_right = 4800.0
+offset_bottom = 2700.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rrxvj")
+
+[node name="Background" type="TextureRect" parent="." unique_id=215111166]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="." unique_id=1156773240]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6715.0
+offset_top = -3780.0
+offset_right = -4795.0
+offset_bottom = -2700.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1918433632]
+custom_minimum_size = Vector2(600, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -660.0
+offset_top = -175.0
+offset_right = -60.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=2100528737]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 90
+text = "Nama Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="Panel/VBoxContainer" unique_id=1898939342]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "Start
+"
+
+[node name="Setting" type="Button" parent="Panel/VBoxContainer" unique_id=587003027]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "Setting"
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer" unique_id=2137773389]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "Credits"
