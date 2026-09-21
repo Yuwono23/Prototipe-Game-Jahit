@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://ddkyx0fnhcbt0"]
 
 [ext_resource type="Script" uid="uid://bedqjbhscu6nv" path="res://Script/PilihKain.gd" id="1_cb1d2"]
-
-[sub_resource type="Gradient" id="Gradient_cb1d2"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.64255506, 0.33734262, 0.15417463, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_cb1d2"]
-gradient = SubResource("Gradient_cb1d2")
-width = 500
-height = 750
-
-[sub_resource type="Gradient" id="Gradient_gmvxw"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.73333335, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gmvxw"]
-gradient = SubResource("Gradient_gmvxw")
-width = 500
-height = 750
-
-[sub_resource type="Gradient" id="Gradient_vu2t2"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vu2t2"]
-gradient = SubResource("Gradient_vu2t2")
-width = 500
-height = 750
+[ext_resource type="Texture2D" uid="uid://c37a32rxvaax7" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190021.png" id="2_0tkef"]
+[ext_resource type="Texture2D" uid="uid://dfkl5j51xkaee" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190026.png" id="3_dohbc"]
+[ext_resource type="Texture2D" uid="uid://2gl23hqsxe75" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190029.png" id="4_pcpnc"]
+[ext_resource type="Texture2D" uid="uid://b4p66onullcub" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190033.png" id="5_y35mp"]
+[ext_resource type="Texture2D" uid="uid://c5x5cys5i64nf" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190036.png" id="6_y71wd"]
+[ext_resource type="Texture2D" uid="uid://dwp1e83eiqjat" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190040.png" id="7_7hslj"]
+[ext_resource type="Texture2D" uid="uid://dvpcukvtw3ak1" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190045.png" id="8_j14wp"]
+[ext_resource type="Texture2D" uid="uid://cinjb1f4vjs5c" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190051.png" id="9_gvk6d"]
+[ext_resource type="Texture2D" uid="uid://durqsvtyh5cor" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190054.png" id="10_lxrc4"]
+[ext_resource type="Texture2D" uid="uid://5onbk6l0s4m6" path="res://Asset/PilihKain_Minigame/Background.png" id="11_dohbc"]
+[ext_resource type="Texture2D" uid="uid://coan5y8echjcc" path="res://Asset/PilihKain_Minigame/Rak_Kain.png" id="12_pcpnc"]
+[ext_resource type="Texture2D" uid="uid://441bdcb1gljy" path="res://Asset/PilihKain_Minigame/Bingkai.png" id="13_y35mp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlngs"]
 bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
@@ -43,57 +28,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cb1d2")
-database_kain = Array[Texture2D]([SubResource("GradientTexture2D_cb1d2"), SubResource("GradientTexture2D_gmvxw"), SubResource("GradientTexture2D_vu2t2")])
+database_kain = Array[Texture2D]([ExtResource("2_0tkef"), ExtResource("3_dohbc"), ExtResource("4_pcpnc"), ExtResource("5_y35mp"), ExtResource("6_y71wd"), ExtResource("7_7hslj"), ExtResource("8_j14wp"), ExtResource("9_gvk6d"), ExtResource("10_lxrc4")])
 
-[node name="BingkaiTarget" type="Panel" parent="." unique_id=619853784]
-clip_contents = true
+[node name="Background" type="TextureRect" parent="." unique_id=955327631]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_top = 189.0
-offset_right = 100.0
-offset_bottom = 389.0
-grow_horizontal = 2
-
-[node name="TargetKain" type="TextureRect" parent="BingkaiTarget" unique_id=2004039739]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -150.5
-offset_top = -41.0
-offset_right = 149.5
-offset_bottom = 259.0
-grow_horizontal = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="WadahPilihan" type="HBoxContainer" parent="." unique_id=784507266]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -954.0
-offset_top = -37.5
-offset_right = 965.0
-offset_bottom = 668.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 60
-alignment = 1
-
-[node name="Kain0" type="TextureButton" parent="WadahPilihan" unique_id=1294593712]
-layout_mode = 2
-
-[node name="Kain1" type="TextureButton" parent="WadahPilihan" unique_id=143017345]
-layout_mode = 2
-
-[node name="Kain2" type="TextureButton" parent="WadahPilihan" unique_id=1245350477]
-layout_mode = 2
+texture = ExtResource("11_dohbc")
 
 [node name="Timer" type="Timer" parent="." unique_id=108780842]
 one_shot = true
@@ -106,3 +50,97 @@ theme_override_styles/background = SubResource("StyleBoxFlat_wlngs")
 theme_override_styles/fill = SubResource("StyleBoxFlat_0mpa2")
 fill_mode = 1
 show_percentage = false
+
+[node name="RakKain" type="TextureRect" parent="." unique_id=1765561561]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 683.0
+offset_right = 1914.0
+offset_bottom = 1083.0
+texture = ExtResource("12_pcpnc")
+
+[node name="WadahPilihan" type="HBoxContainer" parent="RakKain" unique_id=784507266]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = 22.0
+offset_right = -110.0
+offset_bottom = 372.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Kain0" type="TextureButton" parent="RakKain/WadahPilihan" unique_id=1294593712]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Kain1" type="TextureButton" parent="RakKain/WadahPilihan" unique_id=143017345]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Kain2" type="TextureButton" parent="RakKain/WadahPilihan" unique_id=1245350477]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Bingkai" type="TextureRect" parent="." unique_id=451979426]
+z_index = 1
+layout_mode = 0
+offset_left = 783.0
+offset_top = 128.0
+offset_right = 1083.0
+offset_bottom = 578.0
+texture = ExtResource("13_y35mp")
+
+[node name="LabelNamaKain" type="Label" parent="Bingkai" unique_id=1171925806]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -127.0
+offset_right = 104.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="UkuranTarget" type="Panel" parent="." unique_id=619853784]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -392.0
+offset_right = 101.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TargetKain" type="TextureRect" parent="UkuranTarget" unique_id=2004039739]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -144.0
+offset_right = 129.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5

@@ -5,8 +5,8 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 
 # Muncul di Inspector Godot. Masukkan semua tekstur kain ke dalam array ini.
 @export var database_kain: Array[Texture2D]
-@onready var target_kain = $BingkaiTarget/TargetKain
-@onready var wadah = $WadahPilihan
+@onready var target_kain = $UkuranTarget/TargetKain
+@onready var wadah = $RakKain/WadahPilihan
 @onready var tombol_kain = wadah.get_children()
 var posisi_awal_y_wadah = 0.0
 var sudah_memilih = false
@@ -16,6 +16,8 @@ var index_jawaban_benar = 0 # Tentukan indeks kain yang benar (0, 1, atau 2)
 var tween_hover: Tween # Menyimpan Tween hover agar tidak bentrok
 @export var durasi_waktu: float = 10.0
 signal minigame_selesai(sukses: bool)
+# Tambahkan referensi ke label baru di bagian paling atas
+@onready var label_nama_kain = $Bingkai/LabelNamaKain
 
 func _ready():
 	posisi_awal_y_wadah = wadah.position.y
@@ -68,6 +70,16 @@ func _siapkan_ronde_baru():
 	# 3. Pasang gambar target di bagian atas layar (TextureRect)
 	target_kain.texture = kain_benar
 	
+	# --- [KODE BARU DARI KODI: MENGAMBIL NAMA KAIN] ---
+	var path_tekstur = kain_benar.resource_path
+	var nama_file = path_tekstur.get_file() 
+	var nama_bersih = nama_file.get_basename() 
+	
+	# Mengganti garis bawah dan format nama agar lebih rapi (misal: "kain_flanel" -> "Kain Flanel")
+	nama_bersih = nama_bersih.replace("_", " ").capitalize()
+	label_nama_kain.text = nama_bersih
+	# ---------------------------------------------------
+	
 	# 4. Gabungkan ketiganya dan acak urutannya untuk ditaruh di tombol
 	var daftar_pilihan = [kain_benar, kain_salah_1, kain_salah_2]
 	daftar_pilihan.shuffle()
@@ -84,6 +96,7 @@ func _siapkan_ronde_baru():
 	# Reset bar dan mulai timer setelah ronde siap dimainkan
 	bar_waktu.value = 100.0
 	timer_game.start(durasi_waktu)
+	
 			
 func _saat_hover(tombol_aktif: TextureButton):
 	if sudah_memilih: return
