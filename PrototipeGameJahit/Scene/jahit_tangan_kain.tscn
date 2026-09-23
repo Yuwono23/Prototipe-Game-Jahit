@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://m4ix8nwowhxp"]
+
+[ext_resource type="Script" uid="uid://bf23y2366xjob" path="res://Script/jahit_tangan_kain.gd" id="1_71b4y"]
+[ext_resource type="Texture2D" uid="uid://dfkl5j51xkaee" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190026.png" id="2_pocfl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pocfl"]
+bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoqf5"]
+bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
+
+[node name="JahitTanganKain" type="Control" unique_id=963083148]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_71b4y")
+
+[node name="Timer" type="Timer" parent="." unique_id=1093865154]
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1389252443]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pocfl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yoqf5")
+fill_mode = 1
+show_percentage = false
+
+[node name="BackgroundKain1" type="TextureRect" parent="." unique_id=1215223245]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 138.0
+offset_right = 924.0
+offset_bottom = 968.0
+texture = ExtResource("2_pocfl")
+
+[node name="BackgroundKain2" type="TextureRect" parent="." unique_id=95688576]
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 136.0
+offset_right = 1737.0
+offset_bottom = 966.0
+texture = ExtResource("2_pocfl")
+
+[node name="WadahTitik" type="Node2D" parent="." unique_id=1487025023]
+
+[node name="Titik0" type="Marker2D" parent="WadahTitik" unique_id=1722733346]
+position = Vector2(1067, 856)
+
+[node name="Titik1" type="Marker2D" parent="WadahTitik" unique_id=450043857]
+position = Vector2(880, 730)
+
+[node name="Titik2" type="Marker2D" parent="WadahTitik" unique_id=2026284172]
+position = Vector2(1064, 584)
+
+[node name="Titik3" type="Marker2D" parent="WadahTitik" unique_id=1057462558]
+position = Vector2(884, 485)
+
+[node name="Titik4" type="Marker2D" parent="WadahTitik" unique_id=1498489268]
+position = Vector2(1049, 346)
+
+[node name="Titik5" type="Marker2D" parent="WadahTitik" unique_id=900664853]
+position = Vector2(897, 228)
+
+[node name="GarisPetunjuk" type="Line2D" parent="." unique_id=982938645]
+width = 30.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="GarisPemain" type="Line2D" parent="." unique_id=896706369]
+width = 30.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

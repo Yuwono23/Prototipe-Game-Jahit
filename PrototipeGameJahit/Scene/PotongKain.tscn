@@ -46,11 +46,12 @@ grow_vertical = 2
 
 [node name="Kain" type="TextureRect" parent="VisualPotong" unique_id=260128349]
 layout_mode = 0
-offset_left = 113.0
-offset_top = 231.0
-offset_right = 759.0
-offset_bottom = 877.0
+offset_left = 175.0
+offset_top = 265.0
+offset_right = 775.0
+offset_bottom = 1015.0
 texture = ExtResource("2_4kw2o")
+expand_mode = 1
 
 [node name="LintasanPola" type="Path2D" parent="VisualPotong/Kain" unique_id=2006060980]
 curve = SubResource("Curve2D_4kw2o")
@@ -60,7 +61,7 @@ position = Vector2(127, 225)
 rotation = -2.0344439
 
 [node name="GuntingBesar" type="TextureRect" parent="VisualPotong/Kain/LintasanPola/PengikutJalur" unique_id=95182083]
-offset_right = 91.3956
+offset_right = 90.0
 offset_bottom = 260.0
 rotation = 1.5707964
 texture = SubResource("GradientTexture2D_f0i2j")
@@ -84,24 +85,24 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.048
 anchor_bottom = 0.019000001
-offset_left = 85.0
+offset_left = 189.0
 offset_top = 386.0
-offset_right = 545.16
-offset_bottom = 436.48
+offset_right = 649.16
+offset_bottom = 435.48
 color = Color(0.4390491, 0.43904912, 0.43904912, 1)
 
 [node name="ZonaHijau" type="ColorRect" parent="UI_SkillCheck/BackgroundBar" unique_id=1724326484]
 layout_mode = 0
 offset_left = 197.0
-offset_right = 310.0
-offset_bottom = 71.0
+offset_right = 307.0
+offset_bottom = 70.0
 color = Color(0.24313726, 1, 0.11372549, 1)
 
 [node name="IndikatorJarum" type="TextureRect" parent="UI_SkillCheck" unique_id=1739236476]
 layout_mode = 0
-offset_left = 293.0
+offset_left = 397.0
 offset_top = 390.0
-offset_right = 357.0
+offset_right = 462.0
 offset_bottom = 631.0
 texture = SubResource("GradientTexture2D_4kw2o")
 
@@ -110,9 +111,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.081
 anchor_bottom = 0.087000005
-offset_left = 84.0
+offset_left = 188.0
 offset_top = 294.0
-offset_right = 516.77
+offset_right = 620.77
 offset_bottom = 284.03998
 theme_override_constants/separation = 10
 alignment = 1
@@ -143,3 +144,10 @@ theme_override_styles/background = SubResource("StyleBoxFlat_4kw2o")
 theme_override_styles/fill = SubResource("StyleBoxFlat_psiir")
 fill_mode = 1
 show_percentage = false
+
+[node name="BackgroundKain" type="TextureRect" parent="." unique_id=1299129331]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 228.0
+offset_right = 1107.0
+offset_bottom = 1068.0

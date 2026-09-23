@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://c3vbk5xuu6nu3"]
+
+[ext_resource type="Script" uid="uid://ros4c5ywpw1i" path="res://Script/pasang_kancing.gd" id="1_2rsnn"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="2_te5v8"]
+[ext_resource type="Texture2D" uid="uid://cumtvhep0a4k2" path="res://Asset/Placeholder/DESAIN ANEH WPPG (4).png" id="2_ucl7r"]
+[ext_resource type="Texture2D" uid="uid://cbt0mljr4sbxs" path="res://Asset/Placeholder/DESAIN ANEH WPPG (5).png" id="3_kegh1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucl7r"]
+bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kegh1"]
+bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
+
+[node name="PasangKancing" type="Control" unique_id=1333725567]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rsnn")
+tekstur_hitam_atas = ExtResource("2_ucl7r")
+tekstur_putih_atas = ExtResource("3_kegh1")
+
+[node name="Timer" type="Timer" parent="." unique_id=1658869002]
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=513134427]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 96.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ucl7r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kegh1")
+fill_mode = 1
+show_percentage = false
+
+[node name="WadahPanah" type="VBoxContainer" parent="." unique_id=216176609]
+layout_mode = 0
+offset_left = 847.0
+offset_top = 175.0
+offset_right = 1847.0
+offset_bottom = 475.0
+theme_override_constants/separation = 20
+
+[node name="PanahTarget" type="HBoxContainer" parent="WadahPanah" unique_id=1939562817]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Target1" type="TextureRect" parent="WadahPanah/PanahTarget" unique_id=1717885318]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Target2" type="TextureRect" parent="WadahPanah/PanahTarget" unique_id=949503404]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Target3" type="TextureRect" parent="WadahPanah/PanahTarget" unique_id=682816644]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Target4" type="TextureRect" parent="WadahPanah/PanahTarget" unique_id=1902348032]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="GarisPemisah" type="ColorRect" parent="WadahPanah" unique_id=1345638605]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanahPemain" type="HBoxContainer" parent="WadahPanah" unique_id=1079744963]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Pemain1" type="TextureRect" parent="WadahPanah/PanahPemain" unique_id=395858880]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Pemain2" type="TextureRect" parent="WadahPanah/PanahPemain" unique_id=8668621]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Pemain3" type="TextureRect" parent="WadahPanah/PanahPemain" unique_id=348144509]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Pemain4" type="TextureRect" parent="WadahPanah/PanahPemain" unique_id=1587026240]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_te5v8")
+expand_mode = 1
+
+[node name="Kancing" type="TextureRect" parent="." unique_id=1947094749]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 230.0
+offset_right = 762.0
+offset_bottom = 880.0
