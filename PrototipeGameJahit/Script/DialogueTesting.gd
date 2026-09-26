@@ -3,7 +3,7 @@ extends Node
 const FILE_DIALOG = preload("res://Dialogue/cerita_tutorial.dialogue") 
 
 # Sesuaikan dengan nama scene barumu
-const BALLOON_SCENE = preload("res://Scene/dialogue_system.tscn") 
+const BALLOON_SCENE = preload("res://Scene/DialogueSystem.tscn") 
 
 func _ready():
 	await get_tree().create_timer(0.5).timeout

@@ -1,31 +1,16 @@
 [gd_scene format=3 uid="uid://yxrg4nptuh4r"]
 
 [ext_resource type="Script" uid="uid://dcyvc5y8xcc2a" path="res://Script/JahitKain.gd" id="1_wofhh"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rwfk"]
-bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htijc"]
-bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="2_2rwfk"]
 
 [node name="Control" type="Control" unique_id=750104249]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_wofhh")
-
-[node name="Timer" type="Timer" parent="." unique_id=382195948]
-one_shot = true
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1839397901]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 96.0
-theme_override_styles/background = SubResource("StyleBoxFlat_2rwfk")
-theme_override_styles/fill = SubResource("StyleBoxFlat_htijc")
-fill_mode = 1
-show_percentage = false
 
 [node name="JalurBiru" type="ColorRect" parent="." unique_id=454492486]
 layout_mode = 0
@@ -64,3 +49,6 @@ offset_left = 64.0
 offset_top = 348.0
 offset_right = 1144.0
 offset_bottom = 1068.0
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("2_2rwfk")]
+layout_mode = 1

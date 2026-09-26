@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bhr4ygmqt26rv"]
+
+[ext_resource type="Script" uid="uid://brdw0edxhgj4d" path="res://Script/CariSobekan.gd" id="1_85lq4"]
+[ext_resource type="Texture2D" uid="uid://dynq2syxqmqfx" path="res://Asset/Placeholder/DESAIN ANEH WPPG (9).png" id="2_2irjw"]
+[ext_resource type="PackedScene" uid="uid://sh8o1y4eomgo" path="res://Scene/Sobekan.tscn" id="2_xo0ba"]
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="4_pbk4l"]
+
+[node name="CariSobekan" type="Control" unique_id=756259119]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_85lq4")
+scene_sobekan = ExtResource("2_xo0ba")
+
+[node name="Baju" type="TextureRect" parent="." unique_id=546980208]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -548.5
+offset_top = -545.5
+offset_right = 548.5
+offset_bottom = 545.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2irjw")
+
+[node name="WadahTitik" type="Node2D" parent="Baju" unique_id=1040413576]
+position = Vector2(-411.5, 5.5)
+
+[node name="Marker2D" type="Marker2D" parent="Baju/WadahTitik" unique_id=37785006]
+position = Vector2(602, 334)
+
+[node name="Marker2D2" type="Marker2D" parent="Baju/WadahTitik" unique_id=1037992013]
+position = Vector2(1340, 349)
+
+[node name="Marker2D3" type="Marker2D" parent="Baju/WadahTitik" unique_id=1197325851]
+position = Vector2(791, 725)
+
+[node name="Marker2D4" type="Marker2D" parent="Baju/WadahTitik" unique_id=1420103543]
+position = Vector2(1014, 482)
+
+[node name="Marker2D5" type="Marker2D" parent="Baju/WadahTitik" unique_id=1430613079]
+position = Vector2(1175, 780)
+
+[node name="Marker2D6" type="Marker2D" parent="Baju/WadahTitik" unique_id=1978157506]
+position = Vector2(758, 1008)
+
+[node name="Marker2D7" type="Marker2D" parent="Baju/WadahTitik" unique_id=1933042600]
+position = Vector2(1212, 979)
+
+[node name="Marker2D8" type="Marker2D" parent="Baju/WadahTitik" unique_id=1965950084]
+position = Vector2(1163, 166)
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("4_pbk4l")]
+layout_mode = 0
+anchors_preset = 0

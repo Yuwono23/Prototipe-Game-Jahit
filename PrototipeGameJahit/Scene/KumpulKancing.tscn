@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cy5grvrhncmbc"]
+
+[ext_resource type="Script" uid="uid://bgd5ogrydoykw" path="res://Script/KumpulKancing.gd" id="1_mc46j"]
+[ext_resource type="PackedScene" uid="uid://ciaquxlo25piu" path="res://Scene/KancingJatuh.tscn" id="2_sdowg"]
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="2_wr115"]
+[ext_resource type="Texture2D" uid="uid://c6uk653emv085" path="res://Asset/Placeholder/Desain tanpa judul (10).png" id="3_sdowg"]
+[ext_resource type="Texture2D" uid="uid://c14u3bja1jmem" path="res://Asset/Placeholder/Kancing.png" id="5_sdowg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sshc3"]
+size = Vector2(115, 122)
+
+[node name="KumpulKancing" type="Control" unique_id=896450433]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mc46j")
+scene_kancing = ExtResource("2_sdowg")
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("2_wr115")]
+layout_mode = 1
+
+[node name="TimerSpawn" type="Timer" parent="." unique_id=1626567739]
+
+[node name="KeranjangPemain" type="Area2D" parent="." unique_id=833887091]
+position = Vector2(847, 923)
+
+[node name="Gambar keranjang" type="Sprite2D" parent="KeranjangPemain" unique_id=1715081705]
+texture = ExtResource("3_sdowg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KeranjangPemain" unique_id=94354281]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_sshc3")
+
+[node name="UI_Hint" type="Control" parent="." unique_id=1718259567]
+anchors_preset = 0
+offset_left = 1332.0
+offset_top = 314.0
+offset_right = 1747.0
+offset_bottom = 586.0
+
+[node name="TextureRect" type="TextureRect" parent="UI_Hint" unique_id=854106006]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.000183
+offset_top = -50.0
+offset_right = 49.999817
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sdowg")
+
+[node name="Label" type="Label" parent="UI_Hint" unique_id=799985194]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1

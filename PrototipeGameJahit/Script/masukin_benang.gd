@@ -3,9 +3,8 @@ extends Control
 signal minigame_selesai(sukses: bool)
 
 @onready var bar_ketenangan = $BarKetenangan
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar # Opsional, jika kamu pakai bar waktu visual
 @onready var wadah_jarum = $WadahJarum # Wadah yang menampung gambar jarum & benang
+@onready var timer_global = $TimerGlobal
 
 @export var durasi_waktu: float = 10.0
 @export var ketenangan_berkurang_per_detik: float = 25.0 # Kecepatan bar turun
@@ -17,26 +16,20 @@ var posisi_awal_jarum: Vector2
 func _ready():
 	# Simpan posisi awal wadah agar getarannya tidak membuatnya bergeser jauh
 	posisi_awal_jarum = wadah_jarum.position
-	
+	timer_global.waktu_habis.connect(_kalah)
 	bar_ketenangan.value = 0
 	bar_ketenangan.max_value = 150
 	
-	timer_game.timeout.connect(_kalah)
 	
 	# Sementara langsung dimulai. Nanti bisa dipanggil lewat sinyal HintOverlay
 	_mulai_minigame()
 
 func _mulai_minigame():
-	timer_game.start(durasi_waktu)
-	bar_waktu.max_value = durasi_waktu # Jika pakai bar waktu
+	timer_global.mulai_timer(durasi_waktu)
 	game_aktif = true
 
 func _process(delta):
 	if not game_aktif: return
-	
-	# Update bar waktu (jika ada)
-	if bar_waktu:
-		bar_waktu.value = timer_game.time_left
 		
 	# Mekanik Bar Ketenangan (Selalu merosot turun seiring waktu)
 	if bar_ketenangan.value > 0:
@@ -77,9 +70,9 @@ func _input(event):
 
 func _menang():
 	game_aktif = false
-	timer_game.stop()
+
 	wadah_jarum.position = posisi_awal_jarum # Kembalikan jarum ke posisi diam
-	
+	timer_global.hentikan_timer()
 	print("Ketenangan penuh! Putar animasi benang masuk.")
 	# TODO: Panggil fungsi/Tween animasi sukses di sini nanti
 	

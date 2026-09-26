@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cv5n5e42vxxnw"]
+
+[ext_resource type="Texture2D" uid="uid://crns4bcoeebfx" path="res://Asset/Timer/Base.png" id="1_givry"]
+[ext_resource type="Texture2D" uid="uid://cpw40c8m5tsnw" path="res://Asset/Timer/Fill.png" id="2_tefos"]
+[ext_resource type="Script" uid="uid://cng8mhoj54p5a" path="res://Script/timer_global.gd" id="3_tefos"]
+
+[node name="TimerGlobal" type="TextureProgressBar" unique_id=1847264071]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -925.5
+offset_right = 925.5
+offset_bottom = 135.0
+grow_horizontal = 2
+step = 0.01
+texture_under = ExtResource("1_givry")
+texture_progress = ExtResource("2_tefos")
+script = ExtResource("3_tefos")
+metadata/_edit_use_anchors_ = true
+
+[node name="WaktuInternal" type="Timer" parent="." unique_id=161514021]

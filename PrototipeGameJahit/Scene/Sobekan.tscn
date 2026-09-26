@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://sh8o1y4eomgo"]
+
+[ext_resource type="Texture2D" uid="uid://dleb5udhtn718" path="res://Asset/Placeholder/DESAIN ANEH WPPG (8).png" id="1_f5pt3"]
+[ext_resource type="Script" uid="uid://citpb02altnn7" path="res://Script/Sobekan.gd" id="2_h41hy"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="3_ikqea"]
+
+[node name="Sobekan" type="TextureButton" unique_id=776449332]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_f5pt3")
+script = ExtResource("2_h41hy")
+
+[node name="Penanda" type="Sprite2D" parent="." unique_id=1899095433]
+visible = false
+position = Vector2(82, 92)
+texture = ExtResource("3_ikqea")

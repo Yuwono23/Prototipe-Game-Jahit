@@ -11,20 +11,18 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 var posisi_awal_y_wadah = 0.0
 var sudah_memilih = false
 var index_jawaban_benar = 0 # Tentukan indeks kain yang benar (0, 1, atau 2)
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar
 var tween_hover: Tween # Menyimpan Tween hover agar tidak bentrok
 @export var durasi_waktu: float = 10.0
 signal minigame_selesai(sukses: bool)
 # Tambahkan referensi ke label baru di bagian paling atas
 @onready var label_nama_kain = $Bingkai/LabelNamaKain
+@onready var timer_global = $TimerGlobal
 
 func _ready():
 	posisi_awal_y_wadah = wadah.position.y
 	# Hubungkan sinyal timeout dari timer secara langsung melalui kode
-	timer_game.timeout.connect(_saat_waktu_habis)
 	_hubungkan_sinyal()
-	
+	timer_global.waktu_habis.connect(_saat_waktu_habis)
 	# 1. Spawn Hint Overlay
 	var hint = HINT_OVERLAY_SCENE.instantiate()
 	add_child(hint)
@@ -37,12 +35,6 @@ func _mulai_minigame():
 	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
 	_siapkan_ronde_baru() # Panggil fungsi acak saat game mulai
 
-
-func _process(_delta):
-	# Update tampilan bar waktu secara mulus setiap frame selama timer berjalan
-	if not timer_game.is_stopped() and not sudah_memilih:
-		# Menghitung persentase sisa waktu (0 sampai 100)
-		bar_waktu.value = (timer_game.time_left / timer_game.wait_time) * 100.0
 		
 func _hubungkan_sinyal():
 	for i in range(tombol_kain.size()):
@@ -53,11 +45,11 @@ func _hubungkan_sinyal():
 		tombol.pressed.connect(_saat_dipilih.bind(i, tombol))
 
 func _siapkan_ronde_baru():
+	timer_global.mulai_timer(durasi_waktu)
 	# Pastikan ada cukup kain di database untuk mencegah error
 	if database_kain.size() < 3:
 		push_error("Database butuh minimal 3 tekstur kain!")
-		return
-		
+		return	
 	# 1. Duplikat array agar data asli tidak hilang saat kita ambil isinya
 	var pilihan_tersedia = database_kain.duplicate()
 	pilihan_tersedia.shuffle() 
@@ -93,9 +85,8 @@ func _siapkan_ronde_baru():
 		if daftar_pilihan[i] == kain_benar:
 			index_jawaban_benar = i
 		
-	# Reset bar dan mulai timer setelah ronde siap dimainkan
-	bar_waktu.value = 100.0
-	timer_game.start(durasi_waktu)
+	# [KODE BARU]: Simpan tekstur yang benar ke memori global!
+	GlobalData.tekstur_kain_terpilih = kain_benar
 	
 			
 func _saat_hover(tombol_aktif: TextureButton):
@@ -123,7 +114,8 @@ func _saat_hover_selesai():
 func _saat_dipilih(indeks: int, tombol_terpilih: TextureButton):
 	if sudah_memilih: return
 	sudah_memilih = true
-	timer_game.stop() 
+	
+	timer_global.hentikan_timer()
 	
 	# Hentikan gerakan hover yang mungkin masih berjalan
 	if tween_hover and tween_hover.is_valid():
@@ -152,8 +144,6 @@ func _saat_waktu_habis():
 	if sudah_memilih: return
 	sudah_memilih = true
 	
-	# Visualisasikan bar waktu benar-benar habis
-	bar_waktu.value = 0 
 	
 	# Panggil fungsi cek hasil dengan parameter khusus untuk menandakan 'Kehabisan Waktu'
 	_cek_hasil(-1)

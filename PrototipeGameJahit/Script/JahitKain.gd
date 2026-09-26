@@ -5,8 +5,7 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 @onready var bar_hijau = $JalurBiru/BarHijau
 @onready var jarum = $JalurBiru/Jarum
 @onready var bar_progres = $BarProgres
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar
+@onready var timer_global = $TimerGlobal # Ambil referensi dari node baru
 # Pengaturan Fisika yang bisa diubah langsung di Inspector
 @export var gravitasi = 1200.0
 @export var daya_angkat = -2500.0
@@ -26,9 +25,8 @@ var game_aktif = true
 var tween_jarum: Tween #Simpan referensi Tween
 
 func _ready():
-	timer_game.timeout.connect(_waktu_habis)
+	timer_global.waktu_habis.connect(_kalah)
 	bar_progres.value = progres_jahit
-	bar_waktu.value = 100.0
 	_mulai_animasi_jarum() #Panggil fungsi animasi
 	
 	# 1. Spawn Hint Overlay
@@ -42,7 +40,7 @@ func _ready():
 func _mulai_minigame():
 	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
 	# Jalankan timer level atau pergerakan objek di sini jika sebelumnya ditahan
-	timer_game.start(durasi_waktu)
+	timer_global.mulai_timer(durasi_waktu)
 
 func _mulai_animasi_jarum():
 	var batas_bawah = jalur_biru.size.y - jarum.size.y
@@ -61,8 +59,6 @@ func _mulai_animasi_jarum():
 	
 func _process(delta):
 	if not game_aktif: return
-	if not timer_game.is_stopped():
-		bar_waktu.value = (timer_game.time_left / timer_game.wait_time) * 100.0
 	# 1. Fisika Bar Hijau (Input Pemain)
 	# Tekan Spasi, Klik Kiri, atau Sentuh Layar
 	if Input.is_action_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -125,19 +121,19 @@ func _acak_posisi_jarum():
 
 func _menang():
 	game_aktif = false
-	timer_game.stop()
+	timer_global.hentikan_timer()
 	if tween_jarum: tween_jarum.kill() # Hentikan jarum saat menang
 	minigame_selesai.emit(true)
 	print("Menang! Jahitan selesai dengan rapi.")
 
 func _kalah():
 	game_aktif = false
-	timer_game.stop()
+	timer_global.hentikan_timer()
 	if tween_jarum: tween_jarum.kill() # Hentikan jarum saat kalah
 	minigame_selesai.emit(false)
 	print("Kalah! Progres habis atau waktu habis.")
 
 func _waktu_habis():
 	if game_aktif:
-		bar_waktu.value = 0 # Pastikan bar benar-benar kosong saat waktu habis
+		timer_global = 0;
 		_kalah()

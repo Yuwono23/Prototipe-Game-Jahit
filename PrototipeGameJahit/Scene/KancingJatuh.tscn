@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ciaquxlo25piu"]
+
+[ext_resource type="Script" uid="uid://colg2mvtyoskj" path="res://Script/KacingJatuh.gd" id="1_x13ii"]
+[ext_resource type="Texture2D" uid="uid://c14u3bja1jmem" path="res://Asset/Placeholder/Kancing.png" id="2_6v1ha"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rjekw"]
+radius = 20.0
+
+[node name="KancingJatuh" type="Area2D" unique_id=1037626817]
+script = ExtResource("1_x13ii")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1183411009]
+texture = ExtResource("2_6v1ha")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=233995166]
+shape = SubResource("CircleShape2D_rjekw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=721462672]

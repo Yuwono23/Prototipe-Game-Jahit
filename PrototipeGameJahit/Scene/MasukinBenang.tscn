@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://2sg6rjo75wop"]
+
+[ext_resource type="Script" uid="uid://qv3rgg03x7d8" path="res://Script/masukin_benang.gd" id="1_coyjb"]
+[ext_resource type="Texture2D" uid="uid://ct6ydg4efrq3b" path="res://Asset/Placeholder/pngwing.com.png" id="2_lk771"]
+[ext_resource type="Texture2D" uid="uid://bffxibxscosb7" path="res://Asset/Placeholder/pngwing.com (1).png" id="3_syxlu"]
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="4_fayku"]
+
+[node name="MasukinBenang" type="Control" unique_id=1563666824]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_coyjb")
+
+[node name="BarKetenangan" type="ProgressBar" parent="." unique_id=1062084736]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 325.0
+offset_right = 205.0
+offset_bottom = 775.0
+fill_mode = 3
+show_percentage = false
+
+[node name="WadahJarum" type="Control" parent="." unique_id=1546820770]
+anchors_preset = 0
+offset_left = 365.0
+offset_top = 185.0
+offset_right = 1593.0
+offset_bottom = 1077.0
+
+[node name="GambarJarum" type="Sprite2D" parent="WadahJarum" unique_id=23193091]
+position = Vector2(200, 500)
+rotation = 2.2392573
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_lk771")
+
+[node name="GambarBenang" type="Sprite2D" parent="WadahJarum" unique_id=1323510317]
+position = Vector2(650, 400)
+scale = Vector2(0.5364583, 0.5364583)
+texture = ExtResource("3_syxlu")
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("4_fayku")]
+layout_mode = 0
+anchors_preset = 0

@@ -8,9 +8,12 @@ extends Node
 var indeks_level_saat_ini: int = 0
 
 func _ready():
-	# Pastikan layar mulai dari keadaan transparan penuh di awal level
-	# agar tidak menutupi pop-up Hint minigame pertama
+	# Pastikan layar mulai dari keadaan transparan penuh
 	layar_hitam.modulate.a = 0.0
+	
+	# [SOLUSI BUG 2]: Paksa LayarHitam tetap memproses animasi meskipun game sedang di-pause oleh Hint!
+	layar_hitam.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	muat_minigame_selanjutnya()
 	
 func muat_minigame_selanjutnya():
@@ -22,9 +25,10 @@ func muat_minigame_selanjutnya():
 		
 		indeks_level_saat_ini += 1
 		
-		# Animasi Fade In (Gelap perlahan memudar menjadi transparan)
-		var tween = create_tween()
-		tween.tween_property(layar_hitam, "modulate:a", 0.0, 0.4)
+		# --- PERUBAHAN DARI KODI ---
+		# Hapus kode tween animasi, langsung ubah transparansi layar hitam menjadi 0 (tembus pandang)
+		layar_hitam.modulate.a = 0.0
+		# -------------------------
 	else:
 		_level_tutorial_tamat()
 
@@ -35,8 +39,12 @@ func _pada_minigame_selesai(sukses: bool):
 	else:
 		print("Gagal! Lanjut ke tahap berikutnya tanpa poin.")
 	
+	# [SOLUSI BUG 1]: Berikan jeda di sini SEBELUM layar perlahan menjadi hitam
+	# (Beri waktu 1.5 detik agar pemain bisa melihat animasi selesai atau Splash Screen)
+	await get_tree().create_timer(1.5).timeout
+	
 	# Animasi Fade Out (Transparan perlahan berubah menjadi Gelap)
-	var tween = create_tween()
+	var tween = layar_hitam.create_tween()
 	tween.tween_property(layar_hitam, "modulate:a", 1.0, 0.4)
 	
 	# Tunggu sampai layar benar-benar gelap
@@ -46,7 +54,7 @@ func _pada_minigame_selesai(sukses: bool):
 	for anak in wadah_minigame.get_children():
 		anak.queue_free()
 		
-	# Berikan jeda sejenak saat gelap gulita agar pemain bisa bernapas
+	# Berikan jeda sejenak saat gelap gulita agar pemain bisa bernapas sebelum ronde baru
 	await get_tree().create_timer(0.3).timeout
 	
 	# Panggil minigame selanjutnya

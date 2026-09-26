@@ -11,8 +11,8 @@ const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path fil
 @onready var pengikut_jalur = $VisualPotong/Kain/LintasanPola/PengikutJalur
 @onready var jejak_potongan = $VisualPotong/Kain/LintasanPola/JejakPotongan
 @onready var kain_rect = $VisualPotong/Kain # Asumsi menggunakan TextureRect
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar
+@onready var timer_global = $TimerGlobal
+@onready var latar_kain = $BackgroundKain
 # Variabel yang bisa disesuaikan nilainya langsung di Inspector
 @export var durasi_waktu: float = 10.0
 signal minigame_selesai(sukses: bool)
@@ -25,6 +25,8 @@ var target_progres = 3
 var progres_saat_ini = 0
 
 func _ready():
+	if GlobalData.tekstur_kain_terpilih != null:
+		latar_kain.texture = GlobalData.tekstur_kain_terpilih
 	_buat_jalur_otomatis(kain_rect.texture)
 	# Menentukan batas pantulan kiri dan kanan berdasarkan ukuran bar abu-abu
 	batas_kiri = bg_bar.global_position.x
@@ -33,10 +35,6 @@ func _ready():
 	jejak_potongan.clear_points()
 	# Tambahkan titik awal tepat di ujung bawah gunting
 	jejak_potongan.add_point(pengikut_jalur.position)
-	
-	# Mulai timer saat ronde dimulai
-	timer_game.timeout.connect(_waktu_habis)
-	bar_waktu.value = 100.0
 	
 	# 1. Spawn Hint Overlay
 	var hint = HINT_OVERLAY_SCENE.instantiate()
@@ -49,7 +47,7 @@ func _ready():
 func _mulai_minigame():
 	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
 	# Jalankan timer level atau pergerakan objek di sini jika sebelumnya ditahan
-	timer_game.start(durasi_waktu)
+	timer_global.mulai_timer(durasi_waktu)
 
 func _buat_jalur_otomatis(tekstur: Texture2D):
 	if not tekstur: return
@@ -60,27 +58,36 @@ func _buat_jalur_otomatis(tekstur: Texture2D):
 	bitmap.create_from_image_alpha(gambar, 0.1) 
 	
 	var kotak_batas = Rect2(Vector2.ZERO, gambar.get_size())
-	# epsilon 5.0 menentukan seberapa halus kurva. Makin besar makin kaku, makin kecil makin banyak titik.
 	var array_poligon = bitmap.opaque_to_polygons(kotak_batas, 5.0) 
 	
 	if array_poligon.size() > 0:
 		var kurva_baru = Curve2D.new()
 		var outline_terluar = array_poligon[0] 
 		
-		# Hitung rasio pembesaran
-		var rasio_x = kain_rect.size.x / tekstur.get_size().x
-		var rasio_y = kain_rect.size.y / tekstur.get_size().y
+		# --- MATEMATIKA KHUSUS KEEP ASPECT CENTERED ---
+		var tex_size = tekstur.get_size()
+		var rect_size = kain_rect.size
+		
+		# 1. Cari skala terkecil (agar proporsi gambar tetap tidak gepeng)
+		var skala = min(rect_size.x / tex_size.x, rect_size.y / tex_size.y)
+		
+		# 2. Hitung jarak kosong di pinggir karena gambar diposisikan di tengah
+		var ukuran_visual_di_layar = tex_size * skala
+		var offset_tengah = (rect_size - ukuran_visual_di_layar) / 2.0
+		# -----------------------------------------------
 		
 		for titik in outline_terluar:
-			# Kalikan setiap titik koordinat dengan rasio, tanpa mengubah scale node
-			kurva_baru.add_point(Vector2(titik.x * rasio_x, titik.y * rasio_y))
+			# Kalikan setiap titik koordinat dengan skala, lalu geser posisinya ke tengah
+			var titik_presisi = (titik * skala) + offset_tengah
+			kurva_baru.add_point(titik_presisi)
+			
+		# Menutup garis pola agar ujung akhir menyambung kembali ke ujung awal
+		if kurva_baru.get_point_count() > 0:
+			kurva_baru.add_point(kurva_baru.get_point_position(0))
 			
 		jalur_pola.curve = kurva_baru
 		
 func _process(delta):
-	# Update visual bar waktu setiap frame
-	if not timer_game.is_stopped():
-		bar_waktu.value = (timer_game.time_left / timer_game.wait_time) * 100.0
 	# Pergerakan bolak-balik indikator (ping-pong)
 	indikator.global_position.x += kecepatan_indikator * arah * delta
 	
@@ -128,8 +135,8 @@ func _sukses_memotong():
 	tween.tween_property(pengikut_jalur, "progress_ratio", rasio_target, 0.25)
 	
 	if progres_saat_ini >= target_progres:
-		timer_game.stop() # Hentikan waktu jika pemain berhasil memotong semua bagian
 		tween.finished.connect(func():
+			timer_global.hentikan_timer()
 			set_process(false)
 			minigame_selesai.emit(true)
 			print("Potongan Selesai!")
@@ -145,8 +152,7 @@ func _gagal_memotong():
 	
 func _waktu_habis():
 	set_process(false) # Langsung hentikan pergerakan jarum indikator
-	bar_waktu.value = 0
-	
+	timer_global.hentikan_timer()
 	# Panggil efek kamera bergetar atau animasi robek
 	_gagal_memotong() 
 	minigame_selesai.emit(false)

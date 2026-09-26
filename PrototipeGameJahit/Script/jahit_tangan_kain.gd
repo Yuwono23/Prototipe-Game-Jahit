@@ -1,12 +1,9 @@
 extends Control
 
 signal minigame_selesai(sukses: bool)
-
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar
+@onready var timer_global = $TimerGlobal
 @onready var wadah_titik = $WadahTitik
 @onready var garis_pemain = $GarisPemain
-
 @export var durasi_waktu: float = 10.0
 @export var radius_toleransi: float = 50.0 # Seberapa jauh jari meleset dari titik tapi masih dianggap kena
 
@@ -18,8 +15,7 @@ var game_aktif: bool = false
 @onready var garis_petunjuk = $GarisPetunjuk 
 
 func _ready():
-	timer_game.timeout.connect(_kalah)
-	
+	timer_global.waktu_habis.connect(_kalah)
 	# Bersihkan garis bawaan (jika ada) saat game dimulai
 	garis_pemain.clear_points()
 	garis_petunjuk.clear_points() # Bersihkan petunjuk juga
@@ -43,17 +39,12 @@ func _ready():
 	_mulai_minigame()
 
 func _mulai_minigame():
-	bar_waktu.max_value = durasi_waktu
-	timer_game.start(durasi_waktu)
+	timer_global.mulai_timer(durasi_waktu)
 	game_aktif = true
 	indeks_target_sekarang = 0
 	
 	# Tambahkan titik awal benang di Titik0
 	garis_pemain.add_point(daftar_titik[0])
-
-func _process(_delta):
-	if game_aktif:
-		bar_waktu.value = timer_game.time_left
 
 func _input(event):
 	if not game_aktif: return
@@ -115,7 +106,7 @@ func _input(event):
 func _menang():
 	game_aktif = false
 	sedang_dijahit = false
-	timer_game.stop()
+	timer_global.hentikan_timer()
 	print("Jahitan Sempurna!")
 	minigame_selesai.emit(true)
 

@@ -4,15 +4,12 @@ signal minigame_selesai(sukses: bool)
 
 enum Arah { ATAS, BAWAH, KIRI, KANAN }
 
-@onready var timer_game = $Timer
-@onready var bar_waktu = $ProgressBar
+@onready var timer_global = $TimerGlobal
 @onready var panah_target = $WadahPanah/PanahTarget.get_children() # Mengambil 4 TextureRect target
 @onready var panah_pemain = $WadahPanah/PanahPemain.get_children() # Mengambil 4 TextureRect pemain
-
 # Masukkan tekstur panah milikmu dari Inspector
 @export var tekstur_hitam_atas: Texture2D
 @export var tekstur_putih_atas: Texture2D
-
 @export var total_ronde: int = 3
 @export var durasi_waktu: float = 15.0
 
@@ -27,19 +24,14 @@ var sedang_swipe: bool = false
 var minimal_jarak_swipe: float = 60.0 # Seberapa jauh jari harus bergeser agar terhitung usapan
 
 func _ready():
-	timer_game.timeout.connect(_kalah)
+	timer_global.waktu_habis.connect(_kalah)
 	_mulai_minigame()
 
 func _mulai_minigame():
 	ronde_saat_ini = 0
-	bar_waktu.max_value = durasi_waktu
-	timer_game.start(durasi_waktu)
+	timer_global.mulai_timer(durasi_waktu)
 	game_aktif = true
 	_buat_ronde_baru()
-
-func _process(_delta):
-	if game_aktif:
-		bar_waktu.value = timer_game.time_left
 
 func _buat_ronde_baru():
 	indeks_input_sekarang = 0
@@ -146,7 +138,7 @@ func _dapatkan_derajat_rotasi(arah: Arah) -> float:
 
 func _menang():
 	game_aktif = false
-	timer_game.stop()
+	timer_global.hentikan_timer()
 	print("Kancing Terpasang!")
 	minigame_selesai.emit(true)
 

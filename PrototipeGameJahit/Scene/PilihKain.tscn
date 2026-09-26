@@ -13,12 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://5onbk6l0s4m6" path="res://Asset/PilihKain_Minigame/Background.png" id="11_dohbc"]
 [ext_resource type="Texture2D" uid="uid://coan5y8echjcc" path="res://Asset/PilihKain_Minigame/Rak_Kain.png" id="12_pcpnc"]
 [ext_resource type="Texture2D" uid="uid://441bdcb1gljy" path="res://Asset/PilihKain_Minigame/Bingkai.png" id="13_y35mp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlngs"]
-bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mpa2"]
-bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="14_y71wd"]
 
 [node name="Main" type="Control" unique_id=817911825]
 layout_mode = 3
@@ -38,18 +33,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_dohbc")
-
-[node name="Timer" type="Timer" parent="." unique_id=108780842]
-one_shot = true
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=2119508326]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 96.0
-theme_override_styles/background = SubResource("StyleBoxFlat_wlngs")
-theme_override_styles/fill = SubResource("StyleBoxFlat_0mpa2")
-fill_mode = 1
-show_percentage = false
 
 [node name="RakKain" type="TextureRect" parent="." unique_id=1765561561]
 layout_mode = 0
@@ -93,9 +76,9 @@ size_flags_vertical = 8
 z_index = 1
 layout_mode = 0
 offset_left = 783.0
-offset_top = 128.0
+offset_top = 143.0
 offset_right = 1083.0
-offset_bottom = 578.0
+offset_bottom = 593.0
 texture = ExtResource("13_y35mp")
 
 [node name="LabelNamaKain" type="Label" parent="Bingkai" unique_id=1171925806]
@@ -124,9 +107,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -157.0
-offset_top = -392.0
+offset_top = -377.0
 offset_right = 101.0
-offset_bottom = -104.0
+offset_bottom = -89.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -144,3 +127,12 @@ offset_bottom = 144.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 5
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("14_y71wd")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 1851.0
+grow_horizontal = 1

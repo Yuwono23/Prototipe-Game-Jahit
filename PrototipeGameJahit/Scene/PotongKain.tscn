@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://4q6bkd20gfp7"]
 
 [ext_resource type="Script" uid="uid://bg82osr1ls150" path="res://Script/potong_kain.gd" id="1_m1br6"]
-[ext_resource type="Texture2D" uid="uid://b4prg13v3m8dd" path="res://Asset/Placeholder/pngegg.png" id="2_4kw2o"]
+[ext_resource type="Texture2D" uid="uid://bw454vy763tas" path="res://Asset/PotongKain_Minigame/meja.png" id="2_ydlm6"]
+[ext_resource type="Texture2D" uid="uid://c66a7dfox6mx2" path="res://Asset/PotongKain_Minigame/Tak berjudul532_20260924090423.png" id="3_84fys"]
+[ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="3_psiir"]
+[ext_resource type="Texture2D" uid="uid://b2ms048vhshab" path="res://Asset/PotongKain_Minigame/Pensil.png" id="4_k1pj3"]
+[ext_resource type="Texture2D" uid="uid://b0v0kk8hancbs" path="res://Asset/PotongKain_Minigame/Desain tanpa judul (7).png" id="5_ydlm6"]
 
 [sub_resource type="Curve2D" id="Curve2D_4kw2o"]
 
@@ -17,12 +21,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4kw2o"]
 gradient = SubResource("Gradient_4kw2o")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kw2o"]
-bg_color = Color(0.8010191, 0.1437859, 0.1822491, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psiir"]
-bg_color = Color(0.37725317, 0.7849203, 0.06641355, 1)
-
 [node name="Main" type="Control" unique_id=810823676]
 layout_mode = 3
 anchors_preset = 15
@@ -32,10 +30,55 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m1br6")
 
+[node name="Meja" type="TextureRect" parent="." unique_id=1409871388]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ydlm6")
+
+[node name="Meteran" type="TextureRect" parent="." unique_id=713019353]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 127.0
+offset_right = 209.21875
+offset_bottom = 546.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_84fys")
+expand_mode = 1
+
+[node name="Pensil" type="TextureRect" parent="." unique_id=754715277]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54300004
+anchor_top = 0.5
+anchor_right = 0.54300004
+anchor_bottom = 0.5
+offset_left = -181.55994
+offset_top = -319.99994
+offset_right = 149.44006
+offset_bottom = 11.000061
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.61086524
+texture = ExtResource("4_k1pj3")
+expand_mode = 1
+
 [node name="Kamera" type="Camera2D" parent="." unique_id=494248672]
 position = Vector2(962, 538)
 
 [node name="VisualPotong" type="Control" parent="." unique_id=386058122]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,8 +93,8 @@ offset_left = 175.0
 offset_top = 265.0
 offset_right = 775.0
 offset_bottom = 1015.0
-texture = ExtResource("2_4kw2o")
-expand_mode = 1
+texture = ExtResource("5_ydlm6")
+stretch_mode = 5
 
 [node name="LintasanPola" type="Path2D" parent="VisualPotong/Kain" unique_id=2006060980]
 curve = SubResource("Curve2D_4kw2o")
@@ -133,21 +176,11 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 
-[node name="Timer" type="Timer" parent="." unique_id=1391995401]
-one_shot = true
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1622861279]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 96.0
-theme_override_styles/background = SubResource("StyleBoxFlat_4kw2o")
-theme_override_styles/fill = SubResource("StyleBoxFlat_psiir")
-fill_mode = 1
-show_percentage = false
-
 [node name="BackgroundKain" type="TextureRect" parent="." unique_id=1299129331]
 layout_mode = 0
-offset_left = 7.0
 offset_top = 228.0
-offset_right = 1107.0
-offset_bottom = 1068.0
+offset_right = 1100.0
+offset_bottom = 1078.0
+
+[node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("3_psiir")]
+layout_mode = 1
