@@ -13,5 +13,84 @@ Patch: Butuh asset WOIIII #layout=dua #kiri=11 #kanan=10 #fokus=kiri
 
 # Di baris kedua, kamu TIDAK PERLU menulis ulang layout atau gambarnya jika tidak berubah.
 Gran Gran: Aseli #layout=dua #kiri=11 #kanan=10 #fokus=kanan
+=> END
 
+~ test_hint
+Vanessa: Halo! Ini adalah uji coba panel hint. Perhatikan gambarnya! #layout=dua #kiri=vanessa #fokus=kiri #hint
+Vanessa: Kalau baris kedua ini, panel hint-nya harusnya menghilang. #layout=dua #kiri=vanessa #fokus=kiri
+=> END
+
+~ intro
+Patch: Video apaan nih? Siapa lagi nenek-nenek ini? #layout=dua #kiri=vanessa #kanan=patch #fokus=kanan #bg=toko_baju
+Nenek - Nenek Tua: Ugh... di mana sih aku meletakkan kotak jahitku... #fokus=kiri
+Patch: (Di batin) Dia seorang penjahit? #fokus=kanan
+Nenek - Nenek Tua: Sigh... Sakit punggung ini bakal membunuhku lebih cepat daripada radiasi meteor sialan ini... #fokus=kiri
+Nenek - Nenek Tua: Oh! Halo, cucuku di masa depan!, Ini nenekmu Vanessa yang berbicara
+Vanessa : Atau siapapun orang beruntung yang menemukan kaset tua ini. 
+Patch: (Di batin) Kebetulan aku yang nemu, Nek. #fokus=kanan
+Vanessa : Aku bikin video ini cuma buat satu hal: Aku enggak sudi melihat manusia masa depan jalan-jalan telanjang bulat! #fokus=kiri
+Vanessa 	: Jadi, perhatikan baik-baik, Cucuku...
+
+=> END
+
+~ hint_pilih_kain
+Vanessa: Langkah pertama, Cucu manis... pilihlah kain yang sesuai dengan kebutuhanmu. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan #hint #bg=none
+=> END
+
+~ menang_pilih_kain
+Vanessa: Bagus, mata mu jeli juga. Pilihan kainnya sudah tepat! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Hehe, mencocokkan gambar kan keahlianku sejak TK. #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+=> END
+
+~ kalah_pilih_kain
+Vanessa: Aduh... itu matamu minus atau lagi melamun? Kenapa malah ambil kain yang beda jauh coraknya? #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Eh, mirip kok, Nenek... sedikit... #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+Vanessa: Mirip dari Hongkong! Konsentrasi dikit, makanya! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+=> END
+
+
+~ hint_potong_kain
+Vanessa: Tahap berikutnya: memotong kain sesuai pola. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Vanessa: Perhatikan jarum indikatornya. Tekan tombol pas di area HIJAU biar guntingnya nggak melenceng! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan #hint
+=> END
+
+
+~ menang_potong_kain
+Vanessa: Bersih dan presisi! Potongannya lurus sesuai jalur. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Huhuy! Tanganku ternyata berbakat jadi desainer profesional. #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+=> END
+
+~ kalah_potong_kain
+Vanessa: Ya ampun, ini kain mau dibikin baju apa jalur off-road? Bergelombang kayak ombak begitu! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Guntingnya nih, Nek, agak keras kayaknya... #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+Vanessa: Alasan! Jangan salahkan gunting kalau timing tekan tombolmu berantakan. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+=> END
+
+
+~ hint_jahit_kain
+Vanessa: Terakhir, ujian paling krusial: Menjahit! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Vanessa: Tahan layar untuk mengangkat area hijau, lepaskan untuk menurunkan. Jaga jarum AI-nya biar tetap di dalam area hijau! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan #hint
+=> END
+
+~ menang_jahit_kain
+Vanessa: Sempurna! Jahitannya kuat dan rapi. Kamu lulus ujian dasar ini dengan gemilang. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Yeeaay! Berarti sekarang kita siap buka toko beneran dong? #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+=> END
+
+~ kalah_jahit_kain
+Vanessa: Duh, jahitannya berantakan begini kayak sarang laba-laba kena badai. Mau dipakai hantu gentayangan? #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+Patch: Ampun, Nek... Susah banget ngatur tekanan barnya... #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+Vanessa: Makanya jangan cuma pakai otot, pakai perasaan juga dong! Tapi ya sudahlah, anggap saja ini pelajaran berharga buatmu. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+=> END
+
+~ evaluasi_lulus
+Vanessa: Hmm... harus kuakui, kerjamu lumayan cepat. Sebagian besar hasil jahitanmu rapi dan tepat warna. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan #bg=toko_baju
+Patch: Hehe, aku bilang juga apa. Aku memang terlahir untuk pekerjaan ini! #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+Vanessa: Jangan besar kepala dulu. Pelanggan aslinya jauh lebih cerewet dari sekadar timer. Tapi untuk hari ini, kamu resmi kuterima bekerja! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
+=> END
+
+~ evaluasi_gagal
+Vanessa: Astaga naga... dari awal sampai akhir, kerjamu lebih banyak kacaunya daripada benarnya. #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan #bg=toko_baju
+Patch: Nenek, maaf... mesinnya tadi kayaknya kurang pelumas deh. Kainnya juga sedikit aneh... #layout=dua #kiri=patch #kanan=vanessa #fokus=kiri
+Vanessa: Alasan saja terus! Kalau besok kamu bikin baju pelanggan berantakan begini lagi, gajimu kupotong buat ganti rugi kain! Sekarang, bantu nenek ngepel lantai dulu! #layout=dua #kiri=patch #kanan=vanessa #fokus=kanan
 => END

@@ -2,6 +2,8 @@ extends Node
 
 var total_poin: int = 0
 var tekstur_kain_terpilih: Texture2D #data dari kain yang terpilih
+var hint_gambar_kiri: Texture2D = null
+var hint_gambar_kanan: Texture2D = null
 
 # user:// adalah direktori khusus Godot yang aman untuk menyimpan data 
 # dan otomatis didukung di PC maupun Android.

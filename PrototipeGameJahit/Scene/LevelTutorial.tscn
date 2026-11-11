@@ -1,13 +1,13 @@
-[gd_scene format=3 uid="uid://cmgm4kf73bmg"]
+[gd_scene format=3 uid="uid://ckpx4f1kcwpfh"]
 
-[ext_resource type="Script" uid="uid://cn4uuvowhsr1l" path="res://Script/level_tutorial.gd" id="1_nfiew"]
-[ext_resource type="PackedScene" uid="uid://ddkyx0fnhcbt0" path="res://Scene/PilihKain.tscn" id="2_pefmh"]
-[ext_resource type="PackedScene" uid="uid://4q6bkd20gfp7" path="res://Scene/PotongKain.tscn" id="3_fivym"]
-[ext_resource type="PackedScene" uid="uid://yxrg4nptuh4r" path="res://Scene/JahitKain.tscn" id="4_p15tk"]
+[ext_resource type="Script" uid="uid://cn4uuvowhsr1l" path="res://Script/level_tutorial.gd" id="1_eeyd5"]
+[ext_resource type="PackedScene" uid="uid://ddkyx0fnhcbt0" path="res://Scene/PilihKain.tscn" id="2_twaux"]
+[ext_resource type="PackedScene" uid="uid://4q6bkd20gfp7" path="res://Scene/PotongKain.tscn" id="3_cpflq"]
+[ext_resource type="PackedScene" uid="uid://yxrg4nptuh4r" path="res://Scene/JahitKain.tscn" id="4_32lua"]
 
 [node name="LevelTutorial" type="Node" unique_id=133464175]
-script = ExtResource("1_nfiew")
-urutan_minigame = Array[PackedScene]([ExtResource("2_pefmh"), ExtResource("3_fivym"), ExtResource("4_p15tk")])
+script = ExtResource("1_eeyd5")
+urutan_minigame = Array[PackedScene]([ExtResource("2_twaux"), ExtResource("3_cpflq"), ExtResource("4_32lua")])
 
 [node name="WadahMinigame" type="Control" parent="." unique_id=724364567]
 layout_mode = 3

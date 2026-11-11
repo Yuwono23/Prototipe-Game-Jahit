@@ -5,61 +5,88 @@ extends Node
 @onready var wadah_minigame = $WadahMinigame
 @onready var layar_hitam = $CanvasLayerTransisi/LayarHitam
 
-var indeks_level_saat_ini: int = 0
+const FILE_CERITA = preload("res://Dialogue/cerita_tutorial.dialogue") # Pastikan path sesuai
+const UI_DIALOG = preload("res://Scene/DialogueSystem.tscn")
+
+var daftar_nama_minigame = ["pilih_kain", "potong_kain", "jahit_kain"]
+var skor_kemenangan = 0 # [BARU] Variabel untuk melacak jumlah keberhasilan
 
 func _ready():
-	# Pastikan layar mulai dari keadaan transparan penuh
-	layar_hitam.modulate.a = 0.0
-	
-	# [SOLUSI BUG 2]: Paksa LayarHitam tetap memproses animasi meskipun game sedang di-pause oleh Hint!
+	layar_hitam.modulate.a = 1.0
 	layar_hitam.process_mode = Node.PROCESS_MODE_ALWAYS
+	_jalankan_skenario_sutradara()
+
+func _jalankan_skenario_sutradara():
+	skor_kemenangan = 0 # Reset skor di awal
 	
-	muat_minigame_selanjutnya()
+	# 1. BUKA LAYAR & INTRO
+	var tween_buka = layar_hitam.create_tween()
+	tween_buka.tween_property(layar_hitam, "modulate:a", 0.0, 0.5)
+	await tween_buka.finished
 	
-func muat_minigame_selanjutnya():
-	if indeks_level_saat_ini < urutan_minigame.size():
-		var minigame_baru = urutan_minigame[indeks_level_saat_ini].instantiate()
+	DialogueManager.show_dialogue_balloon_scene(UI_DIALOG.instantiate(), FILE_CERITA, "intro")
+	await DialogueManager.dialogue_ended
+	
+	# [BARU] FADE OUT SETELAH INTRO (Sebelum Minigame 1)
+	var tween_tutup_intro = layar_hitam.create_tween()
+	tween_tutup_intro.tween_property(layar_hitam, "modulate:a", 1.0, 0.4)
+	await tween_tutup_intro.finished
+	
+	# Buka layar perlahan untuk minigame pertama
+	var tween_buka_minigame1 = layar_hitam.create_tween()
+	tween_buka_minigame1.tween_property(layar_hitam, "modulate:a", 0.0, 0.4)
+	await tween_buka_minigame1.finished
+	
+	# 2. LOOPING SEMUA MINIGAME
+	for i in range(urutan_minigame.size()):
+		var minigame_baru = urutan_minigame[i].instantiate()
+		var node_hint = minigame_baru.get_node_or_null("HintOverlay")
+		var nama_fase = daftar_nama_minigame[i] if i < daftar_nama_minigame.size() else "umum"
+		
+		if node_hint:
+			node_hint.is_tutorial = true
+			node_hint.judul_dialog_tutorial = "hint_" + nama_fase
+			
 		wadah_minigame.add_child(minigame_baru)
 		
-		minigame_baru.minigame_selesai.connect(_pada_minigame_selesai)
+		var sukses = await minigame_baru.minigame_selesai 
+		await get_tree().create_timer(1.0).timeout
 		
-		indeks_level_saat_ini += 1
+		# [BARU] Hitung Skor Keberhasilan
+		if sukses:
+			skor_kemenangan += 1
 		
-		# --- PERUBAHAN DARI KODI ---
-		# Hapus kode tween animasi, langsung ubah transparansi layar hitam menjadi 0 (tembus pandang)
-		layar_hitam.modulate.a = 0.0
-		# -------------------------
-	else:
-		_level_tutorial_tamat()
+		if sukses:
+			DialogueManager.show_dialogue_balloon_scene(UI_DIALOG.instantiate(), FILE_CERITA, "menang_" + nama_fase)
+		else:
+			DialogueManager.show_dialogue_balloon_scene(UI_DIALOG.instantiate(), FILE_CERITA, "kalah_" + nama_fase)
+			
+		await DialogueManager.dialogue_ended
+		
+		var tween_tutup = layar_hitam.create_tween()
+		tween_tutup.tween_property(layar_hitam, "modulate:a", 1.0, 0.4)
+		await tween_tutup.finished
+		
+		minigame_baru.queue_free()
+		await get_tree().create_timer(0.2).timeout
+		
+		# Buka layar lagi (hanya jika masih ada minigame, atau untuk dialog akhir)
+		var tween_buka_lagi = layar_hitam.create_tween()
+		tween_buka_lagi.tween_property(layar_hitam, "modulate:a", 0.0, 0.4)
+		await tween_buka_lagi.finished
 
-func _pada_minigame_selesai(sukses: bool):
-	if sukses:
-		GlobalData.tambah_poin(1)
-		print("Berhasil! Poin ditambahkan. Total Poin: ", GlobalData.total_poin)
+	# 3. [BARU] EVALUASI AKHIR (POST DIALOG)
+	# Jika berhasil di mayoritas minigame (misal: 2 atau 3 dari 3)
+	if skor_kemenangan >= 2:
+		DialogueManager.show_dialogue_balloon_scene(UI_DIALOG.instantiate(), FILE_CERITA, "evaluasi_lulus")
 	else:
-		print("Gagal! Lanjut ke tahap berikutnya tanpa poin.")
-	
-	# [SOLUSI BUG 1]: Berikan jeda di sini SEBELUM layar perlahan menjadi hitam
-	# (Beri waktu 1.5 detik agar pemain bisa melihat animasi selesai atau Splash Screen)
-	await get_tree().create_timer(1.5).timeout
-	
-	# Animasi Fade Out (Transparan perlahan berubah menjadi Gelap)
-	var tween = layar_hitam.create_tween()
-	tween.tween_property(layar_hitam, "modulate:a", 1.0, 0.4)
-	
-	# Tunggu sampai layar benar-benar gelap
-	await tween.finished
-	
-	# Bersihkan minigame lama yang tersembunyi di balik layar gelap
-	for anak in wadah_minigame.get_children():
-		anak.queue_free()
+		DialogueManager.show_dialogue_balloon_scene(UI_DIALOG.instantiate(), FILE_CERITA, "evaluasi_gagal")
 		
-	# Berikan jeda sejenak saat gelap gulita agar pemain bisa bernapas sebelum ronde baru
-	await get_tree().create_timer(0.3).timeout
+	await DialogueManager.dialogue_ended
 	
-	# Panggil minigame selanjutnya
-	muat_minigame_selanjutnya()
-
-func _level_tutorial_tamat():
-	print("TUTORIAL SELESAI! Total Poin Terkumpul: ", GlobalData.total_poin)
-	# Opsional: Jika menang tutorial, buka kunci level di GlobalData
+	# Transisi penutup level
+	var tween_tutup_final = layar_hitam.create_tween()
+	tween_tutup_final.tween_property(layar_hitam, "modulate:a", 1.0, 1.0)
+	await tween_tutup_final.finished
+	
+	print("Tutorial Selesai. Pindah ke Scene Berikutnya (Misal: Main Menu) di sini!")

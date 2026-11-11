@@ -1,18 +1,21 @@
 extends Control
 
-const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path file-mu
 @onready var jalur_biru = $JalurBiru
 @onready var bar_hijau = $JalurBiru/BarHijau
 @onready var jarum = $JalurBiru/Jarum
 @onready var bar_progres = $BarProgres
 @onready var timer_global = $TimerGlobal # Ambil referensi dari node baru
+@onready var animasi_patch = $AnimasiPatch
+# [BARU] Referensi ke node HintOverlay di dalam scene
+@onready var node_hint = $HintOverlay
+
 # Pengaturan Fisika yang bisa diubah langsung di Inspector
 @export var gravitasi = 1200.0
 @export var daya_angkat = -2500.0
 @export var kecepatan_isi = 25.0
 @export var kecepatan_turun = 15.0
 @export var durasi_waktu: float = 10.0
-#Pengaturan Kecepatan Jarum AI
+# Pengaturan Kecepatan Jarum AI
 @export var kecepatan_jarum = 150.0 
 var arah_jarum = 1 # 1 untuk bergerak ke bawah, -1 untuk ke atas
 signal minigame_selesai(sukses: bool)
@@ -21,25 +24,23 @@ var kecepatan_bar = 0.0
 var progres_jahit = 30.0 # Diberi modal awal 30% agar pemain tidak langsung kalah di detik pertama
 var target_y_jarum = 0.0
 var waktu_pindah_jarum = 0.0
-var game_aktif = true
-var tween_jarum: Tween #Simpan referensi Tween
+var game_aktif = false
+var tween_jarum: Tween # Simpan referensi Tween
+
 
 func _ready():
 	timer_global.waktu_habis.connect(_kalah)
 	bar_progres.value = progres_jahit
-	_mulai_animasi_jarum() #Panggil fungsi animasi
 	
-	# 1. Spawn Hint Overlay
-	var hint = HINT_OVERLAY_SCENE.instantiate()
-	add_child(hint)
-	# 2. Tentukan Teks Instruksi untuk minigame ini (misal: "JAHIT!")
-	hint.tampilkan_hint("JAHIT PAKAIANMU!", 3)	
-	# 3. Dengarkan sinyal saat hint selesai untuk mulai memutar Timer Game asli
-	hint.hint_selesai.connect(_mulai_minigame)
+	# HAPUS BARIS INI: _mulai_animasi_jarum()
+	
+	node_hint.hint_selesai.connect(_mulai_minigame)
+	node_hint.mulai_tampilkan_hint()
 
 func _mulai_minigame():
 	print("Hint selesai, gameplay & timer minigame resmi dimulai!")
-	# Jalankan timer level atau pergerakan objek di sini jika sebelumnya ditahan
+	game_aktif = true # Baru boleh bergerak
+	_mulai_animasi_jarum() # Jarum baru boleh turun
 	timer_global.mulai_timer(durasi_waktu)
 
 func _mulai_animasi_jarum():
@@ -96,10 +97,19 @@ func _cek_progres(delta):
 	# Jika jarum ada di dalam area bar hijau
 	if pusat_jarum >= atas_bar and pusat_jarum <= bawah_bar:
 		progres_jahit += kecepatan_isi * delta
-		bar_hijau.color = Color(0, 1, 0) # Berubah hijau terang sebagai visual feedback
+		bar_hijau.color = Color(0, 1, 0) # Berubah hijau terang
+		
+		# [BARU] Ganti ke animasi normal jika jarum di area aman
+		if animasi_patch.animation != "normal":
+			animasi_patch.play("normal")
+			
 	else:
 		progres_jahit -= kecepatan_turun * delta
 		bar_hijau.color = Color(0.5, 0.8, 0.5) # Hijau pudar jika meleset
+		
+		# [BARU] Ganti ke animasi khawatir jika jarum meleset
+		if animasi_patch.animation != "khawatir":
+			animasi_patch.play("khawatir")
 
 	# Pastikan nilai tidak bocor di bawah 0 atau di atas 100
 	progres_jahit = clamp(progres_jahit, 0, 100)
@@ -129,11 +139,15 @@ func _menang():
 func _kalah():
 	game_aktif = false
 	timer_global.hentikan_timer()
-	if tween_jarum: tween_jarum.kill() # Hentikan jarum saat kalah
+	if tween_jarum: tween_jarum.kill() 
+	
+	# [BARU] Mainkan animasi shock saat gagal
+	animasi_patch.play("shock")
+	
 	minigame_selesai.emit(false)
 	print("Kalah! Progres habis atau waktu habis.")
 
 func _waktu_habis():
 	if game_aktif:
-		timer_global = 0;
+		timer_global.hentikan_timer()
 		_kalah()

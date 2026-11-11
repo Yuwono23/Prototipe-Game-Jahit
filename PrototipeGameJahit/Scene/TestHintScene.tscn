@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://12fanxej0ckk"]
+
+[ext_resource type="Script" uid="uid://252h5xtsmk4x" path="res://Script/TestHintScene.gd" id="1_6fsx7"]
+[ext_resource type="PackedScene" uid="uid://4yvyjymxqehv" path="res://Scene/Hint.tscn" id="2_nm07a"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="3_wox54"]
+[ext_resource type="Texture2D" uid="uid://dfkl5j51xkaee" path="res://Asset/PilihKain_Minigame/Pattern/Tak berjudul525_20260918190026.png" id="4_brqoi"]
+
+[node name="TestHintScene" type="Node2D" unique_id=1517287842]
+script = ExtResource("1_6fsx7")
+
+[node name="HintOverlay" parent="." unique_id=103747666 instance=ExtResource("2_nm07a")]
+is_tutorial = true
+judul_dialog_tutorial = "test_hint"
+tekstur_gambar1 = ExtResource("3_wox54")
+tekstur_gambar2 = ExtResource("4_brqoi")

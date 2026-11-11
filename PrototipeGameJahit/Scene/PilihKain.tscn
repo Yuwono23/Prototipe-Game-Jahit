@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://coan5y8echjcc" path="res://Asset/PilihKain_Minigame/Rak_Kain.png" id="12_pcpnc"]
 [ext_resource type="Texture2D" uid="uid://441bdcb1gljy" path="res://Asset/PilihKain_Minigame/Bingkai.png" id="13_y35mp"]
 [ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="14_y71wd"]
+[ext_resource type="PackedScene" uid="uid://4yvyjymxqehv" path="res://Scene/Hint.tscn" id="15_7hslj"]
 
 [node name="Main" type="Control" unique_id=817911825]
 layout_mode = 3
@@ -136,3 +137,6 @@ anchor_right = 0.0
 offset_left = 0.0
 offset_right = 1851.0
 grow_horizontal = 1
+
+[node name="HintOverlay" parent="." unique_id=103747666 instance=ExtResource("15_7hslj")]
+judul_dialog_tutorial = "hint_pilih_kain"

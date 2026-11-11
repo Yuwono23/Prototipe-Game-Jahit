@@ -2,10 +2,86 @@
 
 [ext_resource type="Script" uid="uid://g32um0mltv5d" path="res://addons/dialogue_manager/nodes/dialogue_label/dialogue_label.gd" id="1_72dvx"]
 [ext_resource type="Script" uid="uid://c6sj46mt0kmsp" path="res://Script/DialogueSystem.gd" id="1_pak4i"]
+[ext_resource type="Texture2D" uid="uid://bj75ec5ofgvyx" path="res://icon.svg" id="3_0misb"]
 
 [node name="DialogueSystem" type="CanvasLayer" unique_id=771316192]
 script = ExtResource("1_pak4i")
 metadata/_custom_type_script = "uid://d1wt4ma6055l8"
+
+[node name="EfekBlur" type="ColorRect" parent="." unique_id=724240202]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="BackgroundGambar" type="TextureRect" parent="EfekBlur" unique_id=252331743]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hint" type="CanvasLayer" parent="." unique_id=1411227759]
+
+[node name="WadahKonten" type="Control" parent="Hint" unique_id=1099238138]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 277.0
+offset_top = 42.0
+offset_right = -126.0
+offset_bottom = -349.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Hint/WadahKonten" unique_id=749487611]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -455.5
+offset_top = -292.5
+offset_right = 544.5
+offset_bottom = 267.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WadahGambar" type="HBoxContainer" parent="Hint/WadahKonten/Background" unique_id=1790926913]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -276.5
+offset_right = 500.0
+offset_bottom = 276.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Gambar1" type="TextureRect" parent="Hint/WadahKonten/Background/WadahGambar" unique_id=193188248]
+custom_minimum_size = Vector2(450, 360)
+layout_mode = 2
+texture = ExtResource("3_0misb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Gambar2" type="TextureRect" parent="Hint/WadahKonten/Background/WadahGambar" unique_id=1725929933]
+custom_minimum_size = Vector2(450, 360)
+layout_mode = 2
+texture = ExtResource("3_0misb")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PortretKiri" type="TextureRect" parent="." unique_id=534863405]
 anchors_preset = 2
@@ -47,6 +123,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="PanelDialog" type="Panel" parent="." unique_id=927271678]
+z_index = 2
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

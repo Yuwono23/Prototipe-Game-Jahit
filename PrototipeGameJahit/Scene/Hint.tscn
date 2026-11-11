@@ -10,6 +10,7 @@ shader_parameter/lod = 2.5
 
 [node name="HintOverlay" type="CanvasLayer" unique_id=103747666]
 process_mode = 3
+layer = 5
 script = ExtResource("1_wk10s")
 
 [node name="BackgroundBlur" type="ColorRect" parent="." unique_id=1780685209]

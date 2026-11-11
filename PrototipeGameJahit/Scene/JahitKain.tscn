@@ -2,6 +2,133 @@
 
 [ext_resource type="Script" uid="uid://dcyvc5y8xcc2a" path="res://Script/JahitKain.gd" id="1_wofhh"]
 [ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="2_2rwfk"]
+[ext_resource type="Texture2D" uid="uid://cv6ivmrqpherp" path="res://Asset/Animation/PatchFrustation/ezgif-frame-001.png" id="2_oggfw"]
+[ext_resource type="PackedScene" uid="uid://4yvyjymxqehv" path="res://Scene/Hint.tscn" id="3_htijc"]
+[ext_resource type="Texture2D" uid="uid://beencruexnicl" path="res://Asset/Animation/PatchFrustation/ezgif-frame-002.png" id="3_w8mb4"]
+[ext_resource type="Texture2D" uid="uid://brshlujdd8hfx" path="res://Asset/Animation/PatchFrustation/ezgif-frame-003.png" id="4_yksh2"]
+[ext_resource type="Texture2D" uid="uid://ca2sauoyvbcfn" path="res://Asset/Animation/PatchFrustation/ezgif-frame-004.png" id="5_y75yt"]
+[ext_resource type="Texture2D" uid="uid://3vhj5jupd7f4" path="res://Asset/Animation/PatchFrustation/ezgif-frame-005.png" id="6_tjiu6"]
+[ext_resource type="Texture2D" uid="uid://bhcaqhxvr1xgb" path="res://Asset/Animation/PatchFrustation/ezgif-frame-006.png" id="7_mvmfe"]
+[ext_resource type="Texture2D" uid="uid://dmgtao7jn4h52" path="res://Asset/Animation/PatchFrustation/ezgif-frame-007.png" id="8_2locu"]
+[ext_resource type="Texture2D" uid="uid://ci50hbtomhu7g" path="res://Asset/Animation/PatchFrustation/ezgif-frame-008.png" id="9_i0syc"]
+[ext_resource type="Texture2D" uid="uid://ct7wtoaeer6fl" path="res://Asset/Animation/PatchFrustation/ezgif-frame-009.png" id="10_2ec2s"]
+[ext_resource type="Texture2D" uid="uid://b7vbovi72gfur" path="res://Asset/Animation/PatchFrustation/ezgif-frame-010.png" id="11_4wvwb"]
+[ext_resource type="Texture2D" uid="uid://c5augs33ci411" path="res://Asset/Animation/PatchFrustation/ezgif-frame-011.png" id="12_mt7op"]
+[ext_resource type="Texture2D" uid="uid://dgbhoobnuwb28" path="res://Asset/Animation/PatchCalm/ezgif-frame-001.png" id="13_bm0gc"]
+[ext_resource type="Texture2D" uid="uid://dm2xj2b6qwr5e" path="res://Asset/Animation/PatchCalm/ezgif-frame-002.png" id="14_t8cfa"]
+[ext_resource type="Texture2D" uid="uid://k7ploydghrnw" path="res://Asset/Animation/PatchCalm/ezgif-frame-003.png" id="15_63nlh"]
+[ext_resource type="Texture2D" uid="uid://cnt67h6uue21q" path="res://Asset/Animation/PatchCalm/ezgif-frame-004.png" id="16_ej6rr"]
+[ext_resource type="Texture2D" uid="uid://07oen8vgrcij" path="res://Asset/Animation/PatchCalm/ezgif-frame-005.png" id="17_n56rx"]
+[ext_resource type="Texture2D" uid="uid://dxgql6je13it4" path="res://Asset/Animation/PatchCalm/ezgif-frame-006.png" id="18_3nwbg"]
+[ext_resource type="Texture2D" uid="uid://cq545bjstuels" path="res://Asset/Animation/PatchCalm/ezgif-frame-007.png" id="19_ul227"]
+[ext_resource type="Texture2D" uid="uid://bg8271ip0f6u" path="res://Asset/Animation/PatchCalm/ezgif-frame-008.png" id="20_83huc"]
+[ext_resource type="Texture2D" uid="uid://bxe1jpoil6da0" path="res://Asset/Animation/PatchCalm/ezgif-frame-009.png" id="21_8ia7u"]
+[ext_resource type="Texture2D" uid="uid://b16u15ac5ff6p" path="res://Asset/Animation/PatchCalm/ezgif-frame-010.png" id="22_4k11r"]
+[ext_resource type="Texture2D" uid="uid://bf0esgwedmwcl" path="res://Asset/Animation/PatchCalm/ezgif-frame-011.png" id="23_ba3dw"]
+[ext_resource type="Texture2D" uid="uid://nfdurlmakfk7" path="res://Asset/Animation/PatchCalm/ezgif-frame-012.png" id="24_f0uc4"]
+[ext_resource type="Texture2D" uid="uid://mvtm0g1eeoxx" path="res://Asset/Animation/PatchShocked/ezgif-frame-001.png" id="25_myg4n"]
+[ext_resource type="Texture2D" uid="uid://dj22rfpo2hf0e" path="res://Asset/Animation/PatchShocked/ezgif-frame-002.png" id="26_stx6r"]
+[ext_resource type="Texture2D" uid="uid://pxajeoynr12f" path="res://Asset/Animation/PatchShocked/ezgif-frame-003.png" id="27_ccs4w"]
+[ext_resource type="Texture2D" uid="uid://cahgjwo67xr8s" path="res://Asset/Animation/PatchShocked/ezgif-frame-004.png" id="28_qmovo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rjekw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oggfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w8mb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yksh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y75yt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tjiu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mvmfe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2locu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_i0syc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2ec2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_4wvwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mt7op")
+}],
+"loop": 1,
+"name": &"khawatir",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_bm0gc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_t8cfa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_63nlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ej6rr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_n56rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_3nwbg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ul227")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_83huc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_8ia7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_4k11r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ba3dw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_f0uc4")
+}],
+"loop": 1,
+"name": &"normal",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_myg4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_stx6r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ccs4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_qmovo")
+}],
+"loop": 0,
+"name": &"shock",
+"speed": 10.0
+}]
 
 [node name="Control" type="Control" unique_id=750104249]
 layout_mode = 3
@@ -11,6 +138,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wofhh")
+
+[node name="AnimasiPatch" type="AnimatedSprite2D" parent="." unique_id=1484484619]
+position = Vector2(967, 545)
+sprite_frames = SubResource("SpriteFrames_rjekw")
+animation = &"shock"
+autoplay = "normal"
+frame = 3
+frame_progress = 1.0
 
 [node name="JalurBiru" type="ColorRect" parent="." unique_id=454492486]
 layout_mode = 0
@@ -52,3 +187,6 @@ offset_bottom = 1068.0
 
 [node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("2_2rwfk")]
 layout_mode = 1
+
+[node name="HintOverlay" parent="." unique_id=103747666 instance=ExtResource("3_htijc")]
+judul_dialog_tutorial = "hint_jahit_kain"

@@ -1,115 +1,154 @@
 extends CanvasLayer
 
-# --- REFERENSI NODE ---
-# Sesuaikan jalurnya ($) jika struktur nodemu sedikit berbeda
+# --- REFERENSI NODE LAMA ---
 @onready var label_nama = $PanelDialog/NamaKarakter
-@onready var label_teks = $PanelDialog/TeksDialog # Pastikan ini menggunakan tipe DialogueLabel bawaan plugin
+@onready var label_teks = $PanelDialog/TeksDialog 
 @onready var portret_kiri = $PortretKiri
 @onready var portret_kanan = $PortretKanan
 @onready var portret_tengah = $PortretTengah
 
-const PATH_KARAKTER = "res://Asset/Placeholder/"
+# --- REFERENSI NODE HINT ---
+@onready var node_hint = $Hint
+@onready var hint_gambar1 = $Hint/WadahKonten/Background/WadahGambar/Gambar1
+@onready var hint_gambar2 = $Hint/WadahKonten/Background/WadahGambar/Gambar2
 
-# --- VARIABEL SISTEM ---
+# --- REFERENSI BLUR & BACKGROUND ---
+@onready var efek_blur = $EfekBlur
+@onready var bg_gambar = $EfekBlur/BackgroundGambar
+
+const PATH_KARAKTER = "res://Asset/Placeholder/"
+const PATH_BG = "res://Asset/Background/" 
+
 var resource_dialog: DialogueResource
 var is_waiting_for_input: bool = false
+var bg_saat_ini: String = "" 
+
+# [BARU] Variabel untuk mengingat status visual dari baris sebelumnya
+var mode_layout_saat_ini: String = "satu"
+var fokus_saat_ini: String = "kiri"
 
 func _ready():
-	# Sembunyikan UI di awal sebelum dialog dipanggil
 	hide()
+	node_hint.hide()
+	bg_gambar.hide()
 
-# Fungsi utama untuk dipanggil dari Scene Test atau Scene Manager
-func start(dialogue_resource: DialogueResource, title: String) -> void:
+func start(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
 	resource_dialog = dialogue_resource
 	show()
+	efek_blur.show() 
 	_lanjutkan_dialog(title)
 
 func _lanjutkan_dialog(next_id: String) -> void:
-	# Ambil baris dialog selanjutnya dari file .dialogue
 	var baris_dialog = await resource_dialog.get_next_dialogue_line(next_id)
 	
-	# Jika dialog sudah habis (mencapai => END), tutup dan hapus node ini
 	if not baris_dialog:
 		queue_free()
 		return
 		
 	is_waiting_for_input = false
 	
-	# 1. Update Nama Karakter
 	label_nama.text = tr(baris_dialog.character, "dialogue")
 	label_nama.visible = not baris_dialog.character.is_empty()
 	
-	# 2. Update Visual Potret DULU (Sekaligus membersihkan tag yang bocor dari teks)
 	_atur_visual_karakter(baris_dialog)
 	
-	# 3. BARU setel ke node TeksDialog agar teks yang sudah bersih yang terketik di layar
 	label_teks.dialogue_line = baris_dialog
 	label_teks.show()
 	label_teks.type_out()
 	await label_teks.finished_typing
 	
-	# Selesai mengetik, tunggu pemain klik/tekan tombol
 	is_waiting_for_input = true
 
 func _atur_visual_karakter(baris_dialog: DialogueLine) -> void:
-	portret_kiri.hide()
-	portret_kanan.hide()
-	portret_tengah.hide()
+	# [DIHAPUS] Kita tidak lagi menyembunyikan portret kiri, kanan, tengah di sini secara otomatis
 	
-	var mode_layout = "satu"
-	var fokus_karakter = "kiri" # Default pembicara ada di kiri
+	var tampilkan_hint = false # Hint tetap di-reset tiap baris (harus dipanggil eksplisit)
+	
 	var tags_to_process = baris_dialog.tags.duplicate()
 	
-	# --- FIX MANUAL PARSING ---
 	if "#" in baris_dialog.text:
 		var bagian = baris_dialog.text.split("#")
 		baris_dialog.text = bagian[0].strip_edges() 
 		
 		for i in range(1, bagian.size()):
 			tags_to_process.append(bagian[i].strip_edges())
-	# --------------------------
 	
-	# Membaca tag dari daftar yang sudah dibersihkan
+	# Membaca tag 
 	for tag in tags_to_process:
 		if tag.begins_with("layout="):
-			mode_layout = tag.split("=")[1]
-		elif tag.begins_with("fokus="):   # [BARU] Membaca tag fokus
-			fokus_karakter = tag.split("=")[1]
+			mode_layout_saat_ini = tag.split("=")[1]
+		elif tag.begins_with("fokus="): 
+			fokus_saat_ini = tag.split("=")[1]
+		elif tag == "hint": 
+			tampilkan_hint = true
+		elif tag.begins_with("bg="): 
+			var nama_bg = tag.split("=")[1]
+			if nama_bg == "none" or nama_bg == "kosong":
+				bg_saat_ini = ""
+				bg_gambar.hide()
+			else:
+				bg_saat_ini = nama_bg
+				var tex_bg = load(PATH_BG + nama_bg + ".png")
+				if tex_bg: 
+					bg_gambar.texture = tex_bg
+					bg_gambar.show()
+		# [BARU] Menambahkan fitur menghapus karakter jika diberi tag "none"
 		elif tag.begins_with("kiri="):
 			var nama_file = tag.split("=")[1]
-			var tex = load(PATH_KARAKTER + nama_file + ".png")
-			if tex: portret_kiri.texture = tex
+			if nama_file == "none":
+				portret_kiri.texture = null
+			else:
+				var tex = load(PATH_KARAKTER + nama_file + ".png")
+				if tex: portret_kiri.texture = tex
 		elif tag.begins_with("kanan="):
 			var nama_file = tag.split("=")[1]
-			var tex = load(PATH_KARAKTER + nama_file + ".png")
-			if tex: portret_kanan.texture = tex
+			if nama_file == "none":
+				portret_kanan.texture = null
+			else:
+				var tex = load(PATH_KARAKTER + nama_file + ".png")
+				if tex: portret_kanan.texture = tex
 		elif tag.begins_with("tengah="):
 			var nama_file = tag.split("=")[1]
-			var tex = load(PATH_KARAKTER + nama_file + ".png")
-			if tex: portret_tengah.texture = tex
+			if nama_file == "none":
+				portret_tengah.texture = null
+			else:
+				var tex = load(PATH_KARAKTER + nama_file + ".png")
+				if tex: portret_tengah.texture = tex
 
-	# Menampilkan gambar sesuai layout
-	if mode_layout == "dua":
-		portret_kiri.show()
-		portret_kanan.show()
+	# Menampilkan gambar karakter berdasarkan layout SAAT INI yang terekam
+	if mode_layout_saat_ini == "dua":
+		portret_tengah.hide() # Sembunyikan yang tengah
 		
-		# [BARU] Logika meredupkan karakter berdasarkan Tag Fokus
-		if fokus_karakter == "kanan":
-			portret_kiri.modulate = Color(0.5, 0.5, 0.5, 1) # Kiri redup
-			portret_kanan.modulate = Color(1, 1, 1, 1)      # Kanan terang
-		elif fokus_karakter == "kiri":
-			portret_kiri.modulate = Color(1, 1, 1, 1)       # Kiri terang
-			portret_kanan.modulate = Color(0.5, 0.5, 0.5, 1)  # Kanan redup
+		if portret_kiri.texture != null: portret_kiri.show()
+		if portret_kanan.texture != null: portret_kanan.show()
+		
+		if fokus_saat_ini == "kanan":
+			portret_kiri.modulate = Color(0.5, 0.5, 0.5, 1) 
+			portret_kanan.modulate = Color(1, 1, 1, 1)      
+		elif fokus_saat_ini == "kiri":
+			portret_kiri.modulate = Color(1, 1, 1, 1)       
+			portret_kanan.modulate = Color(0.5, 0.5, 0.5, 1)  
 		else:
-			# Jika tag fokus diisi teks lain (misal #fokus=dua_duanya), keduanya terang
 			portret_kiri.modulate = Color(1, 1, 1, 1)
 			portret_kanan.modulate = Color(1, 1, 1, 1)
 			
-	elif mode_layout == "satu":
-		portret_tengah.show()
+	elif mode_layout_saat_ini == "satu":
+		portret_kiri.hide()
+		portret_kanan.hide()
+		
+		if portret_tengah.texture != null: portret_tengah.show()
 		portret_tengah.modulate = Color(1, 1, 1, 1)
+		
+	# Memunculkan UI Hint
+	if tampilkan_hint:
+		if GlobalData.hint_gambar_kiri:
+			hint_gambar1.texture = GlobalData.hint_gambar_kiri
+		if GlobalData.hint_gambar_kanan:
+			hint_gambar2.texture = GlobalData.hint_gambar_kanan
+		node_hint.show()
+	else:
+		node_hint.hide()
 
-# Menangkap input klik kiri atau tombol spasi/enter
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
@@ -118,10 +157,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if ditekan:
 		get_viewport().set_input_as_handled()
-		
-		# Jika sedang mengetik, langsung tampilkan semua teks (skip animasi)
 		if label_teks.is_typing:
 			label_teks.skip_typing()
-		# Jika sudah selesai mengetik, lanjut ke baris berikutnya
 		elif is_waiting_for_input:
 			_lanjutkan_dialog(label_teks.dialogue_line.next_id)

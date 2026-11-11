@@ -6,14 +6,33 @@
 [ext_resource type="PackedScene" uid="uid://cv5n5e42vxxnw" path="res://Scene/TimerGlobal.tscn" id="3_psiir"]
 [ext_resource type="Texture2D" uid="uid://b2ms048vhshab" path="res://Asset/PotongKain_Minigame/Pensil.png" id="4_k1pj3"]
 [ext_resource type="Texture2D" uid="uid://b0v0kk8hancbs" path="res://Asset/PotongKain_Minigame/Desain tanpa judul (7).png" id="5_ydlm6"]
+[ext_resource type="Texture2D" uid="uid://dnu3xik03bvd0" path="res://Asset/Animation/Gunting/Tak berjudul530_20260924032555.png" id="6_hijlh"]
+[ext_resource type="PackedScene" uid="uid://4yvyjymxqehv" path="res://Scene/Hint.tscn" id="7_84fys"]
+[ext_resource type="Texture2D" uid="uid://bo45s45vntcq5" path="res://Asset/Animation/Gunting/Tak berjudul530_20260924032559.png" id="7_gorg0"]
 
 [sub_resource type="Curve2D" id="Curve2D_4kw2o"]
 
-[sub_resource type="Gradient" id="Gradient_psiir"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0i2j"]
-gradient = SubResource("Gradient_psiir")
+[sub_resource type="SpriteFrames" id="SpriteFrames_mi1n5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hijlh")
+}],
+"loop": 1,
+"name": &"diam",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_hijlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gorg0")
+}],
+"loop": 1,
+"name": &"potong",
+"speed": 40.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_4kw2o"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -103,17 +122,18 @@ curve = SubResource("Curve2D_4kw2o")
 position = Vector2(127, 225)
 rotation = -2.0344439
 
-[node name="GuntingBesar" type="TextureRect" parent="VisualPotong/Kain/LintasanPola/PengikutJalur" unique_id=95182083]
-offset_right = 90.0
-offset_bottom = 260.0
-rotation = 1.5707964
-texture = SubResource("GradientTexture2D_f0i2j")
+[node name="GuntingBesar" type="AnimatedSprite2D" parent="VisualPotong/Kain/LintasanPola/PengikutJalur" unique_id=2108932245]
+position = Vector2(-20, 50)
+sprite_frames = SubResource("SpriteFrames_mi1n5")
+animation = &"potong"
+autoplay = "diam"
+frame_progress = 0.06194661
+flip_v = true
 
 [node name="JejakPotongan" type="Line2D" parent="VisualPotong/Kain/LintasanPola" unique_id=1941088868]
 width = 25.0
 default_color = Color(0, 0, 0, 1)
 texture_mode = 1
-joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
@@ -184,3 +204,6 @@ offset_bottom = 1078.0
 
 [node name="TimerGlobal" parent="." unique_id=1847264071 instance=ExtResource("3_psiir")]
 layout_mode = 1
+
+[node name="HintOverlay" parent="." unique_id=103747666 instance=ExtResource("7_84fys")]
+judul_dialog_tutorial = "hint_potong_kain"

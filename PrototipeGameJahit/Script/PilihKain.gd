@@ -1,8 +1,5 @@
 extends Control
 
-# Preload scene hint overlay
-const HINT_OVERLAY_SCENE = preload("res://Scene/Hint.tscn") # Sesuaikan path file-mu
-
 # Muncul di Inspector Godot. Masukkan semua tekstur kain ke dalam array ini.
 @export var database_kain: Array[Texture2D]
 @onready var target_kain = $UkuranTarget/TargetKain
@@ -17,19 +14,18 @@ signal minigame_selesai(sukses: bool)
 # Tambahkan referensi ke label baru di bagian paling atas
 @onready var label_nama_kain = $Bingkai/LabelNamaKain
 @onready var timer_global = $TimerGlobal
+@onready var node_hint = $HintOverlay
 
 func _ready():
 	posisi_awal_y_wadah = wadah.position.y
-	# Hubungkan sinyal timeout dari timer secara langsung melalui kode
 	_hubungkan_sinyal()
 	timer_global.waktu_habis.connect(_saat_waktu_habis)
-	# 1. Spawn Hint Overlay
-	var hint = HINT_OVERLAY_SCENE.instantiate()
-	add_child(hint)
-	# 2. Tentukan Teks Instruksi untuk minigame ini (misal: "JAHIT!")
-	hint.tampilkan_hint("PILIH KAIN YANG SESUAI!", 3)	
-	# 3. Dengarkan sinyal saat hint selesai untuk mulai memutar Timer Game asli
-	hint.hint_selesai.connect(_mulai_minigame)
+
+	# Dengarkan sinyal saat hint selesai
+	node_hint.hint_selesai.connect(_mulai_minigame)
+
+	# Panggil hint untuk mulai berjalan
+	node_hint.mulai_tampilkan_hint()
 
 func _mulai_minigame():
 	print("Hint selesai, gameplay & timer minigame resmi dimulai!")

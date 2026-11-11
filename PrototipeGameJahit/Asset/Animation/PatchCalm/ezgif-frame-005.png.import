@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crb4hxkut5wwv"
-path="res://.godot/imported/10.png-dc3950d3c006d08dbdda0e016e18b4f0.ctex"
+uid="uid://07oen8vgrcij"
+path="res://.godot/imported/ezgif-frame-005.png-e6f492d3e2fe19c950546a64e6ad93a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/Placeholder/10.png"
-dest_files=["res://.godot/imported/10.png-dc3950d3c006d08dbdda0e016e18b4f0.ctex"]
+source_file="res://Asset/Animation/PatchCalm/ezgif-frame-005.png"
+dest_files=["res://.godot/imported/ezgif-frame-005.png-e6f492d3e2fe19c950546a64e6ad93a5.ctex"]
 
 [params]
 

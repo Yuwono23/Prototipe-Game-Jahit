@@ -1,58 +1,74 @@
-extends CanvasLayer
+extends CanvasLayer # Atau Control, sesuaikan dengan tipe root node HintOverlay
 
-signal hint_selesai 
+signal hint_selesai
 
-@export var gambar_ilustrasi: Array[Texture2D] = []
+# ==========================================
+# VARIABEL PENGATURAN (EDIT DI INSPECTOR)
+# ==========================================
+@export_category("Pengaturan Mode")
+@export var is_tutorial: bool = false
+@export var judul_dialog_tutorial: String = "" # Judul naskah di .dialogue (misal: "hint_potong")
 
+@export_category("Data Hint")
+@export_multiline var teks_petunjuk: String = "INI PERINTAH"
+@export var tekstur_gambar1: Texture2D
+@export var tekstur_gambar2: Texture2D
+@export var durasi_hint: float = 3.0 # Durasi hint untuk level biasa
+
+# ==========================================
+# REFERENSI NODE
+# ==========================================
+@onready var background_blur = $BackgroundBlur
 @onready var wadah_konten = $WadahKonten
-@onready var wadah_gambar = $WadahKonten/Background/WadahGambar
 @onready var teks_instruksi = $WadahKonten/TeksInstruksi
+@onready var gambar1 = $WadahKonten/Background/WadahGambar/Gambar1
+@onready var gambar2 = $WadahKonten/Background/WadahGambar/Gambar2
 
-@onready var gambar_1 = $WadahKonten/Background/WadahGambar/Gambar1
-@onready var gambar_2 = $WadahKonten/Background/WadahGambar/Gambar2
+# Referensi ke file naskah dialog utama kita
+const FILE_CERITA = preload("res://Dialogue/cerita_tutorial.dialogue")
 
 func _ready():
-	# Pastikan scene ini tetap berjalan meskipun game di-pause
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Sembunyikan UI bawaan saat scene dimuat
+	background_blur.hide()
+	wadah_konten.hide()
 
-func tampilkan_hint(pesan_instruksi: String, durasi_hint: float = 1.5, ilustrasi_kustom: Array[Texture2D] = []):
-	teks_instruksi.text = pesan_instruksi
+# Fungsi utama yang dipanggil oleh minigame
+func mulai_tampilkan_hint():
+	if is_tutorial:
+		_tampilkan_hint_tutorial()
+	else:
+		_tampilkan_hint_biasa()
+
+# --- MODE 1: HINT LEVEL BIASA ---
+func _tampilkan_hint_biasa():
+	# Set data ke UI
+	teks_instruksi.text = teks_petunjuk
 	
-	var daftar_gambar = ilustrasi_kustom if ilustrasi_kustom.size() > 0 else gambar_ilustrasi
-	_atur_tampilan_gambar(daftar_gambar)
+	if tekstur_gambar1:
+		gambar1.texture = tekstur_gambar1
+	if tekstur_gambar2:
+		gambar2.texture = tekstur_gambar2
+		
+	# Munculkan UI
+	background_blur.show()
+	wadah_konten.show()
 	
-	wadah_gambar.visible = true
-	teks_instruksi.visible = true
-	
-	# Hentikan waktu game di latar belakang
-	get_tree().paused = true
-	
-	# Animasi pop-up mekar dari tengah
-	wadah_konten.pivot_offset = wadah_konten.size / 2.0
-	wadah_konten.scale = Vector2.ZERO
-	
-	var tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(wadah_konten, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	
-	# --- CARA BARU YANG LEBIH BERSIH ---
-	# Menunggu selama durasi_hint secara otomatis tanpa perlu Node Timer
+	# Tunggu sesuai durasi
 	await get_tree().create_timer(durasi_hint).timeout
 	
-	# Setelah menunggu, langsung hapus hint dan mulai game!
-	get_tree().paused = false
+	# Sembunyikan UI dan kirim sinyal lanjut
+	background_blur.hide()
+	wadah_konten.hide()
 	hint_selesai.emit()
-	queue_free()
 
-func _atur_tampilan_gambar(daftar_gambar: Array[Texture2D]):
-	if daftar_gambar.size() == 0:
-		gambar_1.visible = false
-		gambar_2.visible = false
-	elif daftar_gambar.size() == 1:
-		gambar_1.texture = daftar_gambar[0]
-		gambar_1.visible = true
-		gambar_2.visible = false
-	else:
-		gambar_1.texture = daftar_gambar[0]
-		gambar_1.visible = true
-		gambar_2.texture = daftar_gambar[1]
-		gambar_2.visible = true
+# --- MODE 2: HINT LEVEL TUTORIAL ---
+func _tampilkan_hint_tutorial():
+	GlobalData.hint_gambar_kiri = tekstur_gambar1
+	GlobalData.hint_gambar_kanan = tekstur_gambar2
+	
+	# Panggil Scene DialogueSystem milikmu secara spesifik
+	var ui_dialog = preload("res://Scene/DialogueSystem.tscn")
+	DialogueManager.show_dialogue_balloon_scene(ui_dialog, FILE_CERITA, judul_dialog_tutorial)
+	
+	await DialogueManager.dialogue_ended 
+	hint_selesai.emit()
